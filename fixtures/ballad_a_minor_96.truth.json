@@ -1,0 +1,35 @@
+{
+ "file": "ballad_a_minor_96.wav",
+ "sections": [
+  {
+   "label": "intro",
+   "start_sec": 0.0,
+   "end_sec": 8.0
+  },
+  {
+   "label": "verse",
+   "start_sec": 8.0,
+   "end_sec": 56.0
+  },
+  {
+   "label": "chorus",
+   "start_sec": 56.0,
+   "end_sec": 80.0
+  },
+  {
+   "label": "outro",
+   "start_sec": 80.0,
+   "end_sec": 88.0
+  }
+ ],
+ "bpm": 96.0,
+ "key": "A minor",
+ "meter": 4,
+ "chords": [
+  "A:min",
+  "F:maj",
+  "C:maj",
+  "G:maj"
+ ],
+ "duration_sec": 88.0
+}

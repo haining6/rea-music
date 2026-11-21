@@ -1,0 +1,31 @@
+{
+  "analysis": {
+    "default_tier": "standard",
+    "max_duration_sec": 900,
+    "structure_min_segment_sec": 8.0,
+    "key_window_sec": 24.0
+  },
+  "generation": {
+    "yue2_mcp_url": "http://127.0.0.1:8791/mcp",
+    "suno_prompt_package": true,
+    "yue2_wait_timeout_sec": 600,
+    "yue2_export_format": "wav",
+    "acestep_base_url": "http://127.0.0.1:8001",
+    "optimization": {
+      "max_iterations": 3,
+      "satisfied_repeat_stop": 2
+    }
+  },
+  "jobs": {
+    "max_workers": 2,
+    "max_retries": 2
+  },
+  "remote": {
+    "songbrain_enabled": false,
+    "songbrain_api_key": null,
+    "songbrain_upload_authorized": false
+  },
+  "input": {
+    "allow_private_networks": false
+  }
+}

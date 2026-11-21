@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    env:
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install FFmpeg (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Ensure FFmpeg (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if (-not (Get-Command ffmpeg -ErrorAction SilentlyContinue)) {
+            choco install ffmpeg -y --no-progress
+          }
+          ffmpeg -version | Select-Object -First 1
+
+      - name: Install package with dev extras
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Build offline fixtures
+        run: python fixtures/make_fixtures.py
+
+      - name: Run tests (engine-free subset)
+        run: python -m pytest tests/ -q --ignore=tests/test_engines_r2.py
+
+  cli-smoke:
+    name: CLI smoke (ubuntu-latest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install package (core only, no extras)
+        run: python -m pip install -e .
+
+      - name: rea-music capabilities
+        run: |
+          rea-music --version
+          rea-music capabilities > capabilities.json
+          python -c "import json,pathlib; caps=json.loads(pathlib.Path('capabilities.json').read_text(encoding='utf-8')); assert caps['ok'] is True and caps['version'], caps; print('capabilities ok:', caps['version'])"
+
+      - name: rea-music cache stats
+        run: |
+          rea-music cache stats > cache_stats.json
+          python -c "import json,pathlib; s=json.loads(pathlib.Path('cache_stats.json').read_text(encoding='utf-8')); assert s['ok'] is True and 'total' in s, s; print('cache stats ok')"
+
+      - name: rea-music cache clean dry-run
+        run: rea-music cache clean --what downloads --older-than-days 7 --dry-run

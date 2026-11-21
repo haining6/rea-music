@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Music DNA v1",
+  "description": "REA-Music 结构化音乐基因。可推断字段携带 value/unit/confidence/method/provenance；不可测字段为 null 并给 missing_reason。段落级特征随时间轴展开。",
+  "type": "object",
+  "required": ["schema", "song", "rhythm", "tonality", "harmony", "form", "production", "provenance_summary"],
+  "properties": {
+    "schema": {"type": "string", "enum": ["music_dna_v1"]},
+    "song": {
+      "type": "object",
+      "required": ["song_id", "content_hash", "duration_sec", "analyzed_at", "analyzer", "analysis_tier"],
+      "properties": {
+        "song_id": {"type": "string"},
+        "content_hash": {"type": "string", "minLength": 32},
+        "source_path": {"type": "string"},
+        "file_name": {"type": ["string", "null"]},
+        "container": {"type": ["string", "null"]},
+        "duration_sec": {"type": "number", "minimum": 0},
+        "sample_rate_hz": {"type": ["integer", "null"]},
+        "channels": {"type": ["integer", "null"]},
+        "analyzed_at": {"type": "string"},
+        "analyzer": {"type": "string"},
+        "analysis_tier": {"type": "string", "enum": ["fast", "standard", "deep"]},
+        "usage_rights_note": {"type": "string"}
+      }
+    },
+    "rhythm": {
+      "type": "object",
+      "required": ["layer", "bpm"],
+      "properties": {
+        "layer": {"type": "string", "enum": ["objective_audio_features", "inferred", "interpretive"]},
+        "bpm": {"type": "object", "properties": {
+          "value": {"type": ["number", "null"], "minimum": 0},
+          "unit": {"type": "string"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "method": {"type": ["string", "null"]},
+          "octave_ambiguity": {"type": "boolean", "description": "R6 新增可选：倍频歧义（主/次候选加权分差 <8%）。true 时 confidence 已封顶 0.5，转述须用'约/估计'"},
+          "missing_reason": {"type": "string"}
+        }},
+        "meter_beats": {"type": "object"},
+        "beat_count": {"type": "integer", "minimum": 0},
+        "beats_time_sec": {"type": "object"},
+        "downbeats_time_sec": {"type": "object"},
+        "groove_syncopation": {"type": "object"},
+        "tempo_candidates": {"type": "array"},
+        "tempo_curve": {"type": "object"}
+      }
+    },
+    "tonality": {
+      "type": "object",
+      "required": ["layer", "key"],
+      "properties": {
+        "layer": {"type": "string"},
+        "key": {"type": "object"},
+        "tonic_pitch_class": {"type": ["string", "null"]},
+        "mode": {"type": ["string", "null"]},
+        "key_regions": {"type": "object"}
+      }
+    },
+    "harmony": {
+      "type": "object",
+      "required": ["layer", "chord_segments"],
+      "properties": {
+        "layer": {"type": "string"},
+        "chord_segments": {"type": "object"},
+        "progressions": {"type": "object"},
+        "harmonic_rhythm_beats": {"type": "object"}
+      }
+    },
+    "melody": {
+      "type": "object",
+      "properties": {
+        "layer": {"type": "string"},
+        "notes": {"type": "object"},
+        "vocal_range_semitones": {"type": "object"},
+        "phrase_repetition": {"type": "object"},
+        "midi_path": {"type": "object", "description": "R2 新增可选：旋律转写 MIDI 工件路径（field-with-provenance 包装）"}
+      }
+    },
+    "form": {
+      "type": "object",
+      "required": ["layer", "segments"],
+      "properties": {
+        "layer": {"type": "string"},
+        "segments": {"type": "array", "items": {"type": "object", "required": ["index", "start_sec", "end_sec", "label"],
+          "properties": {
+            "index": {"type": "integer", "minimum": 0},
+            "start_sec": {"type": "number", "minimum": 0},
+            "end_sec": {"type": "number", "minimum": 0},
+            "label": {"type": "object"},
+            "rms": {"type": "object"},
+            "spectral_centroid_hz": {"type": "object"},
+            "chords_local": {"type": ["array", "null"]},
+            "key_local": {"type": ["object", "null"]}
+          }}},
+        "boundary_count": {"type": "integer", "minimum": 0},
+        "method": {"type": ["string", "null"]},
+        "engine": {"type": ["string", "null"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "instrumentation": {
+      "type": "object",
+      "properties": {
+        "layer": {"type": "string"},
+        "stems": {"type": "object"},
+        "band_energy_ratios": {"type": "object"}
+      }
+    },
+    "vocals": {
+      "type": "object",
+      "properties": {
+        "layer": {"type": "string"},
+        "presence_estimate": {"type": ["number", "null"]},
+        "confidence": {"type": "number"},
+        "method": {"type": "string"},
+        "presence_band": {"type": ["string", "null"], "description": "R6 新增可选：presence 三档标签 absent(<0.35) / ambiguous(0.35-0.65) / likely(>0.65)"},
+        "presence_source": {"type": ["string", "null"], "description": "R6 新增可选：presence 口径来源。mid_side_heuristic=整混音启发式（判别力弱）；separated_stem=demucs vocals 轨能量（Deep 档真值口径）"},
+        "heuristics_presence": {"type": ["number", "null"], "description": "R6 新增可选：分轨口径覆盖前的启发式原值，供复核两口径差异"},
+        "presence_method": {"type": ["string", "null"], "description": "R6 新增可选：presence 数值的具体算法标识"},
+        "stem_rms_share": {"type": ["number", "null"], "description": "R6 新增可选：vocals 轨 RMS / 全部轨 RMS 之和（原始占比，未加增益）"},
+        "heuristics_note": {"type": "string", "description": "R6 新增可选：启发式口径的适用边界说明"},
+        "fine_metrics": {"type": "object"}
+      }
+    },
+    "lyrics": {
+      "type": "object",
+      "properties": {
+        "lyrics_available": {"type": "boolean"},
+        "provenance": {"type": "string"}
+      }
+    },
+    "production": {
+      "type": "object",
+      "required": ["layer"],
+      "properties": {
+        "layer": {"type": "string"},
+        "integrated_lufs": {"type": "object"},
+        "lra_lu": {"type": "object"},
+        "true_peak_dbtp": {"type": "object"},
+        "crest_factor_db": {"type": "object"},
+        "spectral_centroid_hz": {"type": "object"},
+        "spectral_flatness": {"type": "object"},
+        "harmonic_percussive_ratio": {"type": "object"},
+        "short_term_lufs_series": {"type": "object"},
+        "rms_curve_1s": {"type": "object"}
+      }
+    },
+    "creative_semantics": {
+      "type": "object",
+      "properties": {
+        "layer": {"type": "string"},
+        "style_tags": {"type": "object"},
+        "mood_tags": {"type": "object"}
+      }
+    },
+    "provenance_summary": {
+      "type": "object",
+      "required": ["analyzer", "schema", "tier", "engines_used"],
+      "properties": {
+        "analyzer": {"type": "string"},
+        "schema": {"type": "string"},
+        "tier": {"type": "string"},
+        "engines_used": {"type": "array", "items": {"type": "string"}},
+        "analysis_completed_at": {"type": "string"},
+        "cross_validation": {"type": "object", "description": "R2 新增可选：songbrain 远程交叉验证记录（无 key/未授权时缺省）"}
+      }
+    }
+  }
+}

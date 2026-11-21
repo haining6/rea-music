@@ -1,0 +1,188 @@
+{
+ "ok": true,
+ "benchmark": "chords_compare_r2c",
+ "created_at": "2026-11-20T17:41:54+08:00",
+ "chordotomy_version": "chordotomy 0.3.1",
+ "fixtures": [
+  {
+   "fixture": "pop_c_major_120.wav",
+   "duration_sec": 80.0,
+   "truth_chords": [
+    "C:maj",
+    "G:maj",
+    "A:min",
+    "F:maj"
+   ],
+   "engines": {
+    "template": {
+     "engine": "template_v2_two_stage",
+     "detected_chords": [
+      "A:min",
+      "A:min_maj7",
+      "C:maj",
+      "F:maj",
+      "G:maj",
+      "G:min"
+     ],
+     "truth_coverage": 1.0,
+     "truth_chords_detected": 4,
+     "truth_chords_total": 4,
+     "in_truth_time_share": 0.925,
+     "false_chords": [
+      "A:min_maj7",
+      "G:min"
+     ],
+     "elapsed_sec": 9.0,
+     "method": "hpss_chroma_beat_synced_two_stage_templates_bass_weighted"
+    },
+    "chordotomy": {
+     "engine": "chordotomy_dsp",
+     "detected_chords": [
+      "A:min",
+      "C:maj",
+      "F:maj",
+      "G:maj"
+     ],
+     "truth_coverage": 1.0,
+     "truth_chords_detected": 4,
+     "truth_chords_total": 4,
+     "in_truth_time_share": 1.0,
+     "false_chords": [],
+     "elapsed_sec": 12.6,
+     "method": "chordotomy_0.3.1_dsp_beat_aligned"
+    }
+   }
+  },
+  {
+   "fixture": "ballad_a_minor_96.wav",
+   "duration_sec": 88.0,
+   "truth_chords": [
+    "A:min",
+    "F:maj",
+    "C:maj",
+    "G:maj"
+   ],
+   "engines": {
+    "template": {
+     "engine": "template_v2_two_stage",
+     "detected_chords": [
+      "A:min",
+      "A:min_maj7",
+      "C:maj",
+      "D:sus4",
+      "F#:sus4",
+      "F:7",
+      "F:maj",
+      "G#:dim",
+      "G:maj"
+     ],
+     "truth_coverage": 1.0,
+     "truth_chords_detected": 4,
+     "truth_chords_total": 4,
+     "in_truth_time_share": 0.935,
+     "false_chords": [
+      "A:min_maj7",
+      "D:sus4",
+      "F#:sus4",
+      "F:7",
+      "G#:dim"
+     ],
+     "elapsed_sec": 9.2,
+     "method": "hpss_chroma_beat_synced_two_stage_templates_bass_weighted"
+    },
+    "chordotomy": {
+     "engine": "chordotomy_dsp",
+     "detected_chords": [
+      "A:min",
+      "C:maj",
+      "F:maj",
+      "G:maj"
+     ],
+     "truth_coverage": 1.0,
+     "truth_chords_detected": 4,
+     "truth_chords_total": 4,
+     "in_truth_time_share": 0.971,
+     "false_chords": [],
+     "elapsed_sec": 13.3,
+     "method": "chordotomy_0.3.1_dsp_beat_aligned"
+    }
+   }
+  },
+  {
+   "fixture": "rock_g_major_150.wav",
+   "duration_sec": 72.0,
+   "truth_chords": [
+    "G:maj",
+    "D:maj",
+    "E:min",
+    "C:maj"
+   ],
+   "engines": {
+    "template": {
+     "engine": "template_v2_two_stage",
+     "detected_chords": [
+      "C:maj",
+      "C:maj7",
+      "D:maj7",
+      "D:sus4",
+      "E:min",
+      "E:min_maj7",
+      "E:sus4",
+      "G:maj",
+      "G:maj7"
+     ],
+     "truth_coverage": 0.75,
+     "truth_chords_detected": 3,
+     "truth_chords_total": 4,
+     "in_truth_time_share": 0.497,
+     "false_chords": [
+      "C:maj7",
+      "D:maj7",
+      "D:sus4",
+      "E:min_maj7",
+      "E:sus4",
+      "G:maj7"
+     ],
+     "elapsed_sec": 7.7,
+     "method": "hpss_chroma_beat_synced_two_stage_templates_bass_weighted"
+    },
+    "chordotomy": {
+     "engine": "chordotomy_dsp",
+     "detected_chords": [
+      "C:maj",
+      "D:maj",
+      "E:min",
+      "G:maj"
+     ],
+     "truth_coverage": 1.0,
+     "truth_chords_detected": 4,
+     "truth_chords_total": 4,
+     "in_truth_time_share": 1.0,
+     "false_chords": [],
+     "elapsed_sec": 12.3,
+     "method": "chordotomy_0.3.1_dsp_beat_aligned"
+    }
+   }
+  }
+ ],
+ "engines": {
+  "chordotomy": {
+   "method_hint": "chordotomy CLI beat-aligned"
+  },
+  "template": {
+   "method_hint": "hpss_chroma_beat_synced_two_stage"
+  }
+ },
+ "summary": {
+  "mean_truth_coverage": {
+   "chordotomy": 1.0,
+   "template": 0.917
+  },
+  "mean_in_truth_time_share": {
+   "chordotomy": 0.99,
+   "template": 0.786
+  }
+ },
+ "verdict": "chordotomy >= template",
+ "acceptance": "MET"
+}

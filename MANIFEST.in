@@ -1,0 +1,30 @@
+# sdist 内容清单。wheel 的内容由 pyproject 的 package-data 决定，这里只管源码发行包。
+#
+# 目的：让从 PyPI 下载 sdist 的人（以及发行版打包者）能拿到
+#   1) 全部法律与安全文本（LICENSE / THIRD_PARTY_NOTICES / SECURITY）
+#   2) 变更记录与数据合同（CHANGELOG / schemas）
+#   3) 测试套件（便于离线自证，不必回 GitHub 取）
+
+include LICENSE
+include README.md
+include CHANGELOG.md
+include SECURITY.md
+include THIRD_PARTY_NOTICES.md
+include pyproject.toml
+
+# 数据合同：仓库根 schemas/ 是对外公开契约副本，包内 src/rea_music/schemas/ 是分发权威副本
+# （两者由 tests/test_standalone.py::test_schema_public_copy_matches_package_resource 守护一致性）
+include schemas/*.json
+
+# 测试与夹具：fixtures/*.wav 由 fixtures/make_fixtures.py 现场生成，不入包
+recursive-include tests *.py
+include fixtures/make_fixtures.py
+recursive-include fixtures *.truth.json
+
+# 排除项：构建产物、缓存、运行时数据（仓库 .gitignore 已排除，这里对 sdist 再兜一层）
+prune dist
+prune build
+prune data
+prune engines
+prune docs/internal
+global-exclude *.py[cod] *.log *.wav

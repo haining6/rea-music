@@ -1,0 +1,69 @@
+[project]
+name = "rea-music"
+version = "0.1.0"
+description = "Agent-Native music reverse-engineering, analysis and creation capability layer"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+authors = [{ name = "haining" }]
+keywords = ["music", "mir", "music-information-retrieval", "mcp", "agent",
+            "analysis", "composition", "librosa"]
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Intended Audience :: Developers",
+    "Typing :: Typed",
+]
+dependencies = [
+    "librosa>=0.11",
+    "soundfile>=0.12",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "pyloudnorm>=0.1.0",
+    "click>=8.1",
+    # mcp 是唯一与代码强耦合的 SDK：mcp/server.py 直接 import MCPServer，
+    # 该符号在 SDK 2.0 才由 FastMCP 更名而来。下限必须 >=2.0，否则
+    # `pip install rea-music` 解析到 1.x 时两个 console_scripts 全部 ImportError。
+    "mcp>=2.3,<3",
+]
+
+[project.urls]
+Homepage = "https://github.com/haining6/rea-music"
+Source = "https://github.com/haining6/rea-music"
+Issues = "https://github.com/haining6/rea-music/issues"
+
+[project.optional-dependencies]
+# 独立运行红线：核心零重依赖，引擎全部可选，缺失时能力探测如实降级
+stems = ["torch>=2.0", "demucs>=4.0"]
+chords = ["chordotomy>=0.4"]
+remote = ["songbrain>=0.4"]
+# 视频/网页链接抽音频（D22）：缺失时 capabilities.input.yt_dlp 报 unavailable
+# 版本下限 2025.1（2024.1 已被 pip 安全策略判 unsafe）
+fetch = ["yt-dlp>=2025.1"]
+dev = ["pytest>=8.0"]
+all = ["torch>=2.0", "demucs>=4.0", "chordotomy>=0.4", "songbrain>=0.4",
+       "yt-dlp>=2025.1", "pytest>=8.0"]
+
+[project.scripts]
+rea-music = "rea_music.cli.main:main"
+rea-music-mcp = "rea_music.mcp.server:serve_stdio"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["rea_music*"]
+
+# DNA schema 是包内数据资源：必须随 wheel/sdist 分发，否则非 editable 安装校验必失败
+# py.typed 是 PEP 561 标记：classifier 声明 Typing :: Typed 就必须带上，否则下游 mypy 忽略本包类型
+[tool.setuptools.package-data]
+rea_music = ["schemas/*.json", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

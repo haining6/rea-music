@@ -1,0 +1,45 @@
+{
+ "demo": "REA-Music x ACE-Step 1.5 真实生成闭环（R4-B 验收证据）",
+ "executed_at": "2026-11-20 19:05-19:15",
+ "chain": [
+  {
+   "step": "models",
+   "detail": "main bundle (vae+Qwen3-Emb-0.6B+turbo DiT) + 5Hz-lm-0.6B via ModelScope 回退，总耗时 ~8 分钟"
+  },
+  {
+   "step": "api",
+   "detail": "engines/ACE-Step-1.5/.venv acestep-api (127.0.0.1:8001)，38 路由 openapi 实盘捕获"
+  },
+  {
+   "step": "submit",
+   "detail": "POST /release_task: prompt=gentle piano instrumental, bpm=92, duration=15s, thinking=False, audio_format=flac（soundfile 路径绕沙箱 ffmpeg 限制）"
+  },
+  {
+   "step": "generation",
+   "detail": "LM 0.6B 补元数据 111.8s + DiT turbo 扩散 4.8s，总 116.63s，GPU 常驻（tier3）"
+  },
+  {
+   "step": "output",
+   "detail": "data/artifacts/ace_live/generated_piano_15s.flac (48kHz PCM_16, 15s)，服务端 stage=succeeded"
+  },
+  {
+   "step": "rea_reanalysis",
+   "detail": "REA standard 档再分析：Key=A major conf 0.82（与 ACE 自标注 keyscale=A major 跨引擎一致 ✓）；BPM 181.3 conf 0.32（无鼓钢琴曲弱检出，如实低置信）；15s 过短无段落（honest missing）；LUFS -17.3 / 真峰值 -1.0dBTP"
+  }
+ ],
+ "defects_found_and_fixed": [
+  {
+   "id": "key-agree-branch",
+   "detail": "key.py 双 profile 一致分支三元组解包崩溃（R1 未测分支，首次被真实生成曲触发），已修复并加回归测试 test_key_profiles_agree_branch"
+  },
+  {
+   "id": "mp3-export-sandbox",
+   "detail": "audio_format 默认 mp3 走 ffmpeg 被沙箱拒写；改 flac 走 soundfile（D9 同源约束）"
+  },
+  {
+   "id": "query_param",
+   "detail": "query_result 需要 task_id_list 列表而非 task_id（源码核对）"
+  }
+ ],
+ "notes": "ACE 为可选后端（D17）；服务重启命令见 docs/integrations.md"
+}

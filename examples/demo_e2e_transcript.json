@@ -1,0 +1,1384 @@
+{
+ "demo": "REA-Music R1 end-to-end",
+ "executed_at": "2026-11-20T16:31:32+0800",
+ "steps": [
+  [
+   "capabilities",
+   {
+    "product": "REA-Music",
+    "version": "0.1.0-r1",
+    "tiers": {
+     "fast": "时长/BPM/拍点/调性/响度/频谱概要（CPU 秒级）",
+     "standard": "fast + 和弦/曲式结构/人声启发式/段落级DNA",
+     "deep": "standard + 分轨与旋律（依赖引擎安装，未装时如实降级）"
+    },
+    "gpu": {
+     "free_mib": 7947,
+     "policy": "GPU 适配器先实测空闲显存，不足自动降级 CPU 或报 capability_unavailable"
+    },
+    "analysis_engines": {
+     "tempo": {
+      "engine": "librosa_dp+autocorr",
+      "available": true
+     },
+     "key": {
+      "engine": "ks+temperley_fusion",
+      "available": true
+     },
+     "chords": {
+      "engine": "internal_template_v1",
+      "available": true,
+      "alternative": "chordotomy (MIT, DSP)",
+      "chordotomy_available": true,
+      "install_hint": "uv pip install chordotomy 可升级和弦精度（无 torch 依赖）"
+     },
+     "structure": {
+      "engine": "agglomerative+heuristic_v1",
+      "available": true,
+      "note": "all-in-one 结构模型为 GPU-gated 升级项（Windows 需编译 NATTEN）"
+     },
+     "separation": {
+      "engine": "demucs_htdemucs",
+      "available": false,
+      "runtime": null,
+      "gpu_free_mib": 7947,
+      "install_hint": "未安装。安装需下载 torch+demucs（>1.5GB），须用户批准：uv pip install torch --index-url https://download.pytorch.org/whl/cpu 且 uv pip install demucs；GPU 版需显存 ≥3GB 空闲",
+      "cpu_speed_note": "CPU 分轨耗时约 1.5x 曲长"
+     },
+     "transcription": {
+      "engine": "librosa_pyin",
+      "available": true,
+      "note": "basic-pitch 官方仅支持 Python ≤3.11，主 venv 为 3.12，需隔离 venv 接入（R2）",
+      "basic_pitch_available": false
+     },
+     "loudness": {
+      "engine": "pyloudnorm_bs1770",
+      "available": true
+     }
+    }
+   }
+  ],
+  [
+   "inspect_audio",
+   {
+    "ok": true,
+    "path": "fixtures\\pop_c_major_120.wav",
+    "file_name": "pop_c_major_120.wav",
+    "file_size_bytes": 14112044,
+    "content_hash": "672c3cb8d1a1a04c68bf323aba1d62752b0b256e186139dbd6e2f9cc424cb9ba",
+    "container": "wav",
+    "codec": "pcm_s16le",
+    "duration_sec": 80.0,
+    "sample_rate_hz": 44100,
+    "channels": 2,
+    "bit_rate_kbps": 1411.2,
+    "bit_depth": 16,
+    "has_video_stream": false
+   }
+  ],
+  [
+   "music_dna_core",
+   {
+    "rhythm": {
+     "layer": "objective_audio_features",
+     "bpm": {
+      "value": 120.2,
+      "unit": "bpm",
+      "confidence": 0.95,
+      "method": "librosa_dp_beat_tracking+autocorr_octave_arbitration",
+      "provenance": "measured"
+     },
+     "meter_beats": {
+      "value": 4,
+      "unit": "beats/measure",
+      "confidence": 0.55,
+      "method": "beat_accent_autocorr_heuristic_v1",
+      "provenance": "measured"
+     },
+     "beat_count": 161,
+     "groove_syncopation": {
+      "value": null,
+      "provenance": "measured",
+      "missing_reason": "requires_onset_grid_deep_analysis"
+     },
+     "tempo_curve": {
+      "value": [
+       {
+        "time_sec": 4.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 8.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 12.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 16.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 20.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 24.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 28.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 32.0,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 35.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 39.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 43.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 47.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 51.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 55.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 59.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 63.9,
+        "bpm": 60.1
+       },
+       {
+        "time_sec": 67.9,
+        "bpm": 60.1
+       }
+      ],
+      "note": "截断预览；完整曲线用 detail=full"
+     }
+    },
+    "tonality": {
+     "layer": "objective_audio_features",
+     "key": {
+      "value": "C major",
+      "confidence": 0.82,
+      "method": "krummhansl_schmuckler+temperley_cqt_chroma_fusion",
+      "provenance": "measured"
+     },
+     "tonic_pitch_class": "C",
+     "mode": "major",
+     "key_regions": {
+      "value": [
+       {
+        "key": "C major",
+        "start_sec": 0.0,
+        "end_sec": 24.0,
+        "strength": 0.855
+       },
+       {
+        "key": "A minor",
+        "start_sec": 12.0,
+        "end_sec": 72.0,
+        "strength": 0.75
+       }
+      ],
+      "confidence": 0.6,
+      "method": "krummhansl_schmuckler+temperley_cqt_chroma_fusion",
+      "provenance": "inferred"
+     }
+    },
+    "form": {
+     "layer": "inferred",
+     "segments": [
+      {
+       "index": 0,
+       "start_sec": 0.0,
+       "end_sec": 8.0,
+       "label": {
+        "value": "intro",
+        "confidence": 0.45,
+        "method": "ward_clustering_silhouette+energy_position_heuristic",
+        "source_time_range_sec": [
+         0.0,
+         8.0
+        ],
+        "provenance": "measured"
+       },
+       "rms": {
+        "value": 0.0991,
+        "unit": "linear",
+        "confidence": 0.8,
+        "source_time_range_sec": [
+         0.0,
+         8.0
+        ],
+        "provenance": "measured"
+       },
+       "spectral_centroid_hz": {
+        "value": 145.6,
+        "unit": "Hz",
+        "confidence": 0.75,
+        "source_time_range_sec": [
+         0.0,
+         8.0
+        ],
+        "provenance": "measured"
+       },
+       "chords_local": [
+        {
+         "chord": "C:maj",
+         "start_sec": 0.04,
+         "end_sec": 8.0
+        }
+       ],
+       "key_local": null
+      },
+      {
+       "index": 1,
+       "start_sec": 8.0,
+       "end_sec": 40.0,
+       "label": {
+        "value": "verse",
+        "confidence": 0.48,
+        "method": "ward_clustering_silhouette+energy_position_heuristic",
+        "source_time_range_sec": [
+         8.0,
+         40.0
+        ],
+        "provenance": "measured"
+       },
+       "rms": {
+        "value": 0.1298,
+        "unit": "linear",
+        "confidence": 0.8,
+        "source_time_range_sec": [
+         8.0,
+         40.0
+        ],
+        "provenance": "measured"
+       },
+       "spectral_centroid_hz": {
+        "value": 519.9,
+        "unit": "Hz",
+        "confidence": 0.75,
+        "source_time_range_sec": [
+         8.0,
+         40.0
+        ],
+        "provenance": "measured"
+       },
+       "chords_local": [
+        {
+         "chord": "C:maj",
+         "start_sec": 8.0,
+         "end_sec": 10.02
+        },
+        {
+         "chord": "G:maj",
+         "start_sec": 10.02,
+         "end_sec": 11.52
+        },
+        {
+         "chord": "G:min",
+         "start_sec": 11.52,
+         "end_sec": 12.02
+        },
+        {
+         "chord": "A:min",
+         "start_sec": 12.02,
+         "end_sec": 14.01
+        },
+        {
+         "chord": "F:maj",
+         "start_sec": 14.01,
+         "end_sec": 16.02
+        },
+        {
+         "chord": "C:maj",
+         "start_sec": 16.02,
+         "end_sec": 18.02
+        },
+        {
+         "chord": "G:maj",
+         "start_sec": 18.02,
+         "end_sec": 19.52
+        },
+        {
+         "chord": "G:min",
+         "start_sec": 19.52,
+         "end_sec": 20.02
+        }
+       ],
+       "key_local": null
+      },
+      {
+       "index": 2,
+       "start_sec": 40.0,
+       "end_sec": 71.99,
+       "label": {
+        "value": "chorus",
+        "confidence": 0.55,
+        "method": "ward_clustering_silhouette+energy_position_heuristic",
+        "source_time_range_sec": [
+         40.0,
+         71.99
+        ],
+        "provenance": "measured"
+       },
+       "rms": {
+        "value": 0.1947,
+        "unit": "linear",
+        "confidence": 0.8,
+        "source_time_range_sec": [
+         40.0,
+         71.99
+        ],
+        "provenance": "measured"
+       },
+       "spectral_centroid_hz": {
+        "value": 794.7,
+        "unit": "Hz",
+        "confidence": 0.75,
+        "source_time_range_sec": [
+         40.0,
+         71.99
+        ],
+        "provenance": "measured"
+       },
+       "chords_local": [
+        {
+         "chord": "F:maj",
+         "start_sec": 40.0,
+         "end_sec": 40.02
+        },
+        {
+         "chord": "C:maj",
+         "start_sec": 40.02,
+         "end_sec": 42.02
+        },
+        {
+         "chord": "G:maj",
+         "start_sec": 42.02,
+         "end_sec": 44.01
+        },
+        {
+         "chord": "A:min",
+         "start_sec": 44.01,
+         "end_sec": 45.01
+        },
+        {
+         "chord": "A:min_maj7",
+         "start_sec": 45.01,
+         "end_sec": 46.01
+        },
+        {
+         "chord": "F:maj",
+         "start_sec": 46.01,
+         "end_sec": 48.02
+        },
+        {
+         "chord": "C:maj",
+         "start_sec": 48.02,
+         "end_sec": 50.02
+        },
+        {
+         "chord": "G:maj",
+         "start_sec": 50.02,
+         "end_sec": 52.01
+        }
+       ],
+       "key_local": null
+      },
+      {
+       "index": 3,
+       "start_sec": 71.99,
+       "end_sec": 80.0,
+       "label": {
+        "value": "outro",
+        "confidence": 0.47,
+        "method": "ward_clustering_silhouette+energy_position_heuristic",
+        "source_time_range_sec": [
+         71.99,
+         80.0
+        ],
+        "provenance": "measured"
+       },
+       "rms": {
+        "value": 0.1197,
+        "unit": "linear",
+        "confidence": 0.8,
+        "source_time_range_sec": [
+         71.99,
+         80.0
+        ],
+        "provenance": "measured"
+       },
+       "spectral_centroid_hz": {
+        "value": 148.5,
+        "unit": "Hz",
+        "confidence": 0.75,
+        "source_time_range_sec": [
+         71.99,
+         80.0
+        ],
+        "provenance": "measured"
+       },
+       "chords_local": [
+        {
+         "chord": "F:maj",
+         "start_sec": 71.99,
+         "end_sec": 72.02
+        },
+        {
+         "chord": "C:maj",
+         "start_sec": 72.02,
+         "end_sec": 74.03
+        },
+        {
+         "chord": "G:maj",
+         "start_sec": 74.03,
+         "end_sec": 76.02
+        },
+        {
+         "chord": "A:min",
+         "start_sec": 76.02,
+         "end_sec": 78.02
+        },
+        {
+         "chord": "F:maj",
+         "start_sec": 78.02,
+         "end_sec": 79.99
+        }
+       ],
+       "key_local": null
+      }
+     ],
+     "boundary_count": 3,
+     "method": "ward_clustering_silhouette+energy_position_heuristic",
+     "engine": "heuristic_v1",
+     "confidence": 0.51
+    },
+    "harmony": {
+     "layer": "inferred",
+     "chord_segments": {
+      "value": [
+       {
+        "start_sec": 0.04,
+        "end_sec": 10.02,
+        "chord": "C:maj",
+        "confidence": 0.14
+       },
+       {
+        "start_sec": 10.02,
+        "end_sec": 11.52,
+        "chord": "G:maj",
+        "confidence": 0.08
+       },
+       {
+        "start_sec": 11.52,
+        "end_sec": 12.02,
+        "chord": "G:min",
+        "confidence": 0.01
+       },
+       {
+        "start_sec": 12.02,
+        "end_sec": 14.01,
+        "chord": "A:min",
+        "confidence": 0.17
+       },
+       {
+        "start_sec": 14.01,
+        "end_sec": 16.02,
+        "chord": "F:maj",
+        "confidence": 0.16
+       },
+       {
+        "start_sec": 16.02,
+        "end_sec": 18.02,
+        "chord": "C:maj",
+        "confidence": 0.15
+       },
+       {
+        "start_sec": 18.02,
+        "end_sec": 19.52,
+        "chord": "G:maj",
+        "confidence": 0.08
+       },
+       {
+        "start_sec": 19.52,
+        "end_sec": 20.02,
+        "chord": "G:min",
+        "confidence": 0.02
+       },
+       {
+        "start_sec": 20.02,
+        "end_sec": 22.01,
+        "chord": "A:min",
+        "confidence": 0.17
+       },
+       {
+        "start_sec": 22.01,
+        "end_sec": 24.02,
+        "chord": "F:maj",
+        "confidence": 0.16
+       },
+       {
+        "start_sec": 24.02,
+        "end_sec": 26.02,
+        "chord": "C:maj",
+        "confidence": 0.15
+       },
+       {
+        "start_sec": 26.02,
+        "end_sec": 27.52,
+        "chord": "G:maj",
+        "confidence": 0.08
+       },
+       {
+        "start_sec": 27.52,
+        "end_sec": 28.02,
+        "chord": "G:min",
+        "confidence": 0.03
+       },
+       {
+        "start_sec": 28.02,
+        "end_sec": 30.01,
+        "chord": "A:min",
+        "confidence": 0.17
+       },
+       {
+        "start_sec": 30.01,
+        "end_sec": 32.02,
+        "chord": "F:maj",
+        "confidence": 0.15
+       },
+       {
+        "start_sec": 32.02,
+        "end_sec": 34.02,
+        "chord": "C:maj",
+        "confidence": 0.15
+       },
+       {
+        "start_sec": 34.02,
+        "end_sec": 35.52,
+        "chord": "G:maj",
+        "confidence": 0.08
+       },
+       {
+        "start_sec": 35.52,
+        "end_sec": 36.01,
+        "chord": "G:min",
+        "confidence": 0.02
+       },
+       {
+        "start_sec": 36.01,
+        "end_sec": 38.01,
+        "chord": "A:min",
+        "confidence": 0.17
+       },
+       {
+        "start_sec": 38.01,
+        "end_sec": 40.02,
+        "chord": "F:maj",
+        "confidence": 0.15
+       },
+       {
+        "start_sec": 40.02,
+        "end_sec": 42.02,
+        "chord": "C:maj",
+        "confidence": 0.23
+       },
+       {
+        "start_sec": 42.02,
+        "end_sec": 44.01,
+        "chord": "G:maj",
+        "confidence": 0.19
+       },
+       {
+        "start_sec": 44.01,
+        "end_sec": 45.01,
+        "chord": "A:min",
+        "confidence": 0.25
+       },
+       {
+        "start_sec": 45.01,
+        "end_sec": 46.01,
+        "chord": "A:min_maj7",
+        "confidence": 0.26
+       },
+       {
+        "start_sec": 46.01,
+        "end_sec": 48.02,
+        "chord": "F:maj",
+        "confidence": 0.25
+       },
+       {
+        "start_sec": 48.02,
+        "end_sec": 50.02,
+        "chord": "C:maj",
+        "confidence": 0.22
+       },
+       {
+        "start_sec": 50.02,
+        "end_sec": 52.01,
+        "chord": "G:maj",
+        "confidence": 0.19
+       },
+       {
+        "start_sec": 52.01,
+        "end_sec": 53.01,
+        "chord": "A:min",
+        "confidence": 0.25
+       },
+       {
+        "start_sec": 53.01,
+        "end_sec": 54.02,
+        "chord": "A:min_maj7",
+        "confidence": 0.26
+       },
+       {
+        "start_sec": 54.02,
+        "end_sec": 56.02,
+        "chord": "F:maj",
+        "confidence": 0.26
+       },
+       {
+        "start_sec": 56.02,
+        "end_sec": 58.02,
+        "chord": "C:maj",
+        "confidence": 0.22
+       },
+       {
+        "start_sec": 58.02,
+        "end_sec": 60.01,
+        "chord": "G:maj",
+        "confidence": 0.19
+       },
+       {
+        "start_sec": 60.01,
+        "end_sec": 61.01,
+        "chord": "A:min",
+        "confidence": 0.25
+       },
+       {
+        "start_sec": 61.01,
+        "end_sec": 62.02,
+        "chord": "A:min_maj7",
+        "confidence": 0.26
+       },
+       {
+        "start_sec": 62.02,
+        "end_sec": 64.02,
+        "chord": "F:maj",
+        "confidence": 0.26
+       },
+       {
+        "start_sec": 64.02,
+        "end_sec": 66.01,
+        "chord": "C:maj",
+        "confidence": 0.23
+       },
+       {
+        "start_sec": 66.01,
+        "end_sec": 68.01,
+        "chord": "G:maj",
+        "confidence": 0.19
+       },
+       {
+        "start_sec": 68.01,
+        "end_sec": 69.02,
+        "chord": "A:min",
+        "confidence": 0.24
+       },
+       {
+        "start_sec": 69.02,
+        "end_sec": 70.02,
+        "chord": "A:min_maj7",
+        "confidence": 0.26
+       },
+       {
+        "start_sec": 70.02,
+        "end_sec": 72.02,
+        "chord": "F:maj",
+        "confidence": 0.26
+       },
+       {
+        "start_sec": 72.02,
+        "end_sec": 74.03,
+        "chord": "C:maj",
+        "confidence": 0.21
+       },
+       {
+        "start_sec": 74.03,
+        "end_sec": 76.02,
+        "chord": "G:maj",
+        "confidence": 0.14
+       },
+       {
+        "start_sec": 76.02,
+        "end_sec": 78.02,
+        "chord": "A:min",
+        "confidence": 0.17
+       },
+       {
+        "start_sec": 78.02,
+        "end_sec": 79.99,
+        "chord": "F:maj",
+        "confidence": 0.17
+       }
+      ],
+      "confidence": 0.18,
+      "method": "hpss_chroma_beat_synced_two_stage_templates_bass_weighted",
+      "engine": "template_v2_two_stage"
+     },
+     "progressions": {
+      "value": [
+       {
+        "progression": [
+         "F:maj",
+         "C:maj",
+         "G:maj",
+         "A:min"
+        ],
+        "count": 5
+       },
+       {
+        "progression": [
+         "C:maj",
+         "G:maj",
+         "G:min",
+         "A:min"
+        ],
+        "count": 4
+       },
+       {
+        "progression": [
+         "G:maj",
+         "G:min",
+         "A:min",
+         "F:maj"
+        ],
+        "count": 4
+       }
+      ],
+      "confidence": 0.55,
+      "provenance": "inferred"
+     },
+     "harmonic_rhythm_beats": {
+      "value": 3.6,
+      "unit": "beats/chord",
+      "confidence": 0.5,
+      "provenance": "inferred"
+     }
+    },
+    "production": {
+     "layer": "objective_audio_features",
+     "integrated_lufs": {
+      "value": -14.9,
+      "unit": "LUFS",
+      "confidence": 0.9,
+      "method": "bs1770_pyloudnorm_integrated_shortterm",
+      "provenance": "measured"
+     },
+     "lra_lu": {
+      "value": 5.5,
+      "unit": "LU",
+      "confidence": 0.85,
+      "provenance": "measured"
+     },
+     "true_peak_dbtp": {
+      "value": -1.1,
+      "unit": "dBTP",
+      "confidence": 0.85,
+      "provenance": "measured"
+     },
+     "crest_factor_db": {
+      "value": 13.9,
+      "unit": "dB",
+      "confidence": 0.85,
+      "provenance": "measured"
+     },
+     "spectral_centroid_hz": {
+      "value": 555.0,
+      "unit": "Hz",
+      "confidence": 0.9,
+      "provenance": "measured"
+     },
+     "spectral_flatness": {
+      "value": 0.025,
+      "confidence": 0.9,
+      "provenance": "measured"
+     },
+     "harmonic_percussive_ratio": {
+      "value": 0.914,
+      "confidence": 0.7,
+      "provenance": "measured"
+     },
+     "rms_curve_1s": {
+      "value": [
+       {
+        "time_sec": 0.0,
+        "rms": 0.0518
+       },
+       {
+        "time_sec": 0.0,
+        "rms": 0.0688
+       },
+       {
+        "time_sec": 0.0,
+        "rms": 0.0469
+       },
+       {
+        "time_sec": 0.0,
+        "rms": 0.0592
+       },
+       {
+        "time_sec": 0.0,
+        "rms": 0.0333
+       },
+       {
+        "time_sec": 0.1,
+        "rms": 0.0562
+       },
+       {
+        "time_sec": 0.1,
+        "rms": 0.0258
+       },
+       {
+        "time_sec": 0.1,
+        "rms": 0.0547
+       },
+       {
+        "time_sec": 0.1,
+        "rms": 0.0349
+       },
+       {
+        "time_sec": 0.1,
+        "rms": 0.0932
+       },
+       {
+        "time_sec": 0.1,
+        "rms": 0.0278
+       },
+       {
+        "time_sec": 0.1,
+        "rms": 0.0939
+       }
+      ],
+      "note": "截断预览"
+     }
+    },
+    "vocals": {
+     "layer": "inferred",
+     "presence_estimate": 0.4,
+     "vocal_band_energy_ratio": 0.255,
+     "center_focus": 0.988,
+     "activity_fraction": 0.27,
+     "confidence": 0.45,
+     "method": "mid_side_vocal_band_heuristic_v1",
+     "fine_metrics": {
+      "vibrato": {
+       "value": null,
+       "missing_reason": "requires_vocal_stem"
+      },
+      "breathiness": {
+       "value": null,
+       "missing_reason": "requires_vocal_stem"
+      },
+      "vocal_range_semitones": {
+       "value": null,
+       "missing_reason": "requires_vocal_stem"
+      },
+      "melody_notes": {
+       "value": null,
+       "missing_reason": "requires_stem_and_transcription_engine"
+      }
+     }
+    },
+    "provenance_summary": {
+     "analyzer": "rea-music/0.1.0-r1",
+     "schema": "music_dna_v1",
+     "tier": "standard",
+     "engines_used": [
+      "librosa_dp_beat_tracking+autocorr_octave_arbitration",
+      "krummhansl_schmuckler+temperley_cqt_chroma_fusion",
+      "hpss_chroma_beat_synced_two_stage_templates_bass_weighted",
+      "ward_clustering_silhouette+energy_position_heuristic"
+     ],
+     "analysis_completed_at": "2026-11-20T16:29:50+08:00"
+    }
+   }
+  ],
+  [
+   "composition_plan",
+   {
+    "plan_id": "plan_c3229309ab19",
+    "created_at": "2026-11-20T16:31:30+0800",
+    "schema": "composition_plan_v1",
+    "objective": "inherit_style_new_song",
+    "user_request": "参考这首曲子写一首原创歌曲",
+    "sources": [
+     "sha256:672c3cb8d1a1a04c"
+    ],
+    "inherit": {
+     "tempo_bpm": 120.2,
+     "key": "C major",
+     "meter_beats_per_measure": 4,
+     "harmonic_flavor": [
+      {
+       "progression": [
+        "F:maj",
+        "C:maj",
+        "G:maj",
+        "A:min"
+       ],
+       "count": 5
+      },
+      {
+       "progression": [
+        "C:maj",
+        "G:maj",
+        "G:min",
+        "A:min"
+       ],
+       "count": 4
+      },
+      {
+       "progression": [
+        "G:maj",
+        "G:min",
+        "A:min",
+        "F:maj"
+       ],
+       "count": 4
+      }
+     ],
+     "instrumentation_hint": "harmonic-texture-forward, prominent-808-or-sub-bass",
+     "energy_arc": [
+      {
+       "progress": 0.0,
+       "relative_energy": 0.31
+      },
+      {
+       "progress": 0.12,
+       "relative_energy": 0.166
+      },
+      {
+       "progress": 0.25,
+       "relative_energy": 0.0
+      },
+      {
+       "progress": 0.38,
+       "relative_energy": 0.0
+      },
+      {
+       "progress": 0.5,
+       "relative_energy": 0.0
+      },
+      {
+       "progress": 0.62,
+       "relative_energy": 0.623
+      },
+      {
+       "progress": 0.75,
+       "relative_energy": 0.402
+      },
+      {
+       "progress": 0.88,
+       "relative_energy": 1.0
+      },
+      {
+       "progress": 1.0,
+       "relative_energy": 0.651
+      }
+     ],
+     "style_tags": [
+      "mid_tempo",
+      "dark_timbre",
+      "harmonic_dominant",
+      "likely_vocal"
+     ]
+    },
+    "sections": [
+     {
+      "label": "intro",
+      "target_duration_sec": 24.0,
+      "energy": "low"
+     },
+     {
+      "label": "verse",
+      "target_duration_sec": 96.0,
+      "energy": "mid"
+     },
+     {
+      "label": "chorus",
+      "target_duration_sec": 96.0,
+      "energy": "high"
+     },
+     {
+      "label": "outro",
+      "target_duration_sec": 24.0,
+      "energy": "low"
+     }
+    ],
+    "lyrics_guidance": {
+     "mode": "generate_new",
+     "language_hint": "由用户指定",
+     "structure_lines_hint": {
+      "verse": "4-6 行/段",
+      "chorus": "4 行",
+      "chorus_repeat": 2
+     },
+     "rhyme_hint": "参考曲押韵结构未提取（需歌词权利）；建议 AABB 或 ABAB",
+     "theme": "由用户目标决定，禁止复用参考曲歌词意象堆砌"
+    },
+    "originality_guardrails": {
+     "reuse_reference_lyrics": false,
+     "reuse_reference_melody_notes": false,
+     "reuse_reference_audio_samples": false,
+     "statistical_style_inheritance_only": true,
+     "note": "风格规律通过统计特征继承；旋律与歌词必须原创产出"
+    },
+    "validation": {
+     "sources_count": 1,
+     "sections_count": 4,
+     "estimated_duration_sec": 240.0
+    }
+   }
+  ],
+  [
+   "suno_package",
+   {
+    "ok": true,
+    "backend": "suno_prompt_package",
+    "style_prompt": "mid_tempo, dark_timbre, harmonic_dominant, likely_vocal, harmonic-texture-forward, prominent-808-or-sub-bass, 120 bpm, C major tonality",
+    "structured_lyrics_template": "[INTRO]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[VERSE]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[CHORUS]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[OUTRO]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[End]",
+    "lyrics_rule": "模板行必须整体替换为原创歌词；禁止填入参考曲歌词",
+    "exclude_styles": "copy of reference track, direct cover",
+    "title_hint": "由用户拟定"
+   }
+  ],
+  [
+   "generate_auto",
+   {
+    "ok": true,
+    "backend": "suno_prompt_package",
+    "style_prompt": "mid_tempo, dark_timbre, harmonic_dominant, likely_vocal, harmonic-texture-forward, prominent-808-or-sub-bass, 120 bpm, C major tonality",
+    "structured_lyrics_template": "[INTRO]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[VERSE]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[CHORUS]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[OUTRO]\n(original line — 由用户/Agent 填入)\n(original line — 由用户/Agent 填入)\n[End]",
+    "lyrics_rule": "模板行必须整体替换为原创歌词；禁止填入参考曲歌词",
+    "exclude_styles": "copy of reference track, direct cover",
+    "title_hint": "由用户拟定",
+    "note": "YuE2 Studio 离线；产出提示词包供 Suno 人工流程",
+    "next": "用户在 Suno 创作完成后，把音频文件传回 rea_music_evaluate_generation 闭环评测"
+   }
+  ],
+  [
+   "evaluation",
+   {
+    "evaluation_id": "eval_b51fcfcb108f",
+    "dimensions": {
+     "节奏符合度": {
+      "detail": {
+       "a_bpm": 120.2,
+       "b_bpm": 149.8,
+       "ratio": 1.246,
+       "distance": 0.318,
+       "verdict": "different"
+      },
+      "satisfied": false
+     },
+     "调性符合度": {
+      "detail": {
+       "a_key": "C major",
+       "b_key": "G major",
+       "fifths_distance": 1,
+       "same_mode": true,
+       "verdict": "relative_or_parallel"
+      },
+      "satisfied": false
+     },
+     "曲式符合度": {
+      "detail": {
+       "a_sections": [
+        "intro",
+        "verse",
+        "chorus",
+        "outro"
+       ],
+       "b_sections": [
+        "intro",
+        "verse",
+        "chorus",
+        "outro"
+       ],
+       "section_count_delta": 0,
+       "label_sequence_similarity": 1.0,
+       "verdict": "similar_form"
+      },
+      "satisfied": true
+     },
+     "能量曲线符合度": {
+      "detail": {
+       "correlation": 0.662,
+       "verdict": "neutral"
+      },
+      "satisfied": true
+     },
+     "音色符合度": {
+      "detail": {
+       "a_centroid_hz": 555.0,
+       "b_centroid_hz": 651.9,
+       "octave_distance": 0.232,
+       "verdict": "similar_brightness"
+      },
+      "satisfied": true
+     },
+     "响度目标符合度": {
+      "detail": {
+       "a_lufs": -14.9,
+       "b_lufs": -15.1,
+       "delta_lu": -0.2,
+       "verdict": "same_mastering"
+      },
+      "satisfied": true
+     }
+    },
+    "technical_quality": {
+     "integrated_lufs": {
+      "value": -15.1,
+      "unit": "LUFS",
+      "confidence": 0.9,
+      "method": "bs1770_pyloudnorm_integrated_shortterm",
+      "provenance": "measured"
+     },
+     "true_peak_dbtp": {
+      "value": -1.1,
+      "unit": "dBTP",
+      "confidence": 0.85,
+      "provenance": "measured"
+     },
+     "lra_lu": {
+      "value": 6.4,
+      "unit": "LU",
+      "confidence": 0.85,
+      "provenance": "measured"
+     },
+     "issues": [],
+     "verdict": "pass"
+    },
+    "originality_risk": {
+     "chord_8gram_overlap": 0.0,
+     "risk_level": "low",
+     "melody_note_overlap": {
+      "value": null,
+      "missing_reason": "requires_transcription_engine_deep_tier"
+     },
+     "note": "和弦高重叠不代表必然侵权，但应人工复核旋律与歌词的相似性"
+    },
+    "revision_suggestions": [
+     {
+      "dimension": "节奏符合度",
+      "adjustment": "把生成请求 BPM 调整到 120.2",
+      "knob": "tempo_bpm"
+     },
+     {
+      "dimension": "调性符合度",
+      "adjustment": "指定调性 C major 或相对转换",
+      "knob": "key"
+     }
+    ]
+   }
+  ],
+  [
+   "revised_plan",
+   {
+    "ok": true,
+    "revised": true,
+    "plan": {
+     "plan_id": "plan_c3229309ab19_r1",
+     "created_at": "2026-11-20T16:31:30+0800",
+     "schema": "composition_plan_v1",
+     "objective": "inherit_style_new_song",
+     "user_request": "参考这首曲子写一首原创歌曲",
+     "sources": [
+      "sha256:672c3cb8d1a1a04c"
+     ],
+     "inherit": {
+      "tempo_bpm": 120.2,
+      "key": "C major",
+      "meter_beats_per_measure": 4,
+      "harmonic_flavor": [
+       {
+        "progression": [
+         "F:maj",
+         "C:maj",
+         "G:maj",
+         "A:min"
+        ],
+        "count": 5
+       },
+       {
+        "progression": [
+         "C:maj",
+         "G:maj",
+         "G:min",
+         "A:min"
+        ],
+        "count": 4
+       },
+       {
+        "progression": [
+         "G:maj",
+         "G:min",
+         "A:min",
+         "F:maj"
+        ],
+        "count": 4
+       }
+      ],
+      "instrumentation_hint": "harmonic-texture-forward, prominent-808-or-sub-bass",
+      "energy_arc": [
+       {
+        "progress": 0.0,
+        "relative_energy": 0.31
+       },
+       {
+        "progress": 0.12,
+        "relative_energy": 0.166
+       },
+       {
+        "progress": 0.25,
+        "relative_energy": 0.0
+       },
+       {
+        "progress": 0.38,
+        "relative_energy": 0.0
+       },
+       {
+        "progress": 0.5,
+        "relative_energy": 0.0
+       },
+       {
+        "progress": 0.62,
+        "relative_energy": 0.623
+       },
+       {
+        "progress": 0.75,
+        "relative_energy": 0.402
+       },
+       {
+        "progress": 0.88,
+        "relative_energy": 1.0
+       },
+       {
+        "progress": 1.0,
+        "relative_energy": 0.651
+       }
+      ],
+      "style_tags": [
+       "mid_tempo",
+       "dark_timbre",
+       "harmonic_dominant",
+       "likely_vocal"
+      ]
+     },
+     "sections": [
+      {
+       "label": "intro",
+       "target_duration_sec": 24.0,
+       "energy": "low"
+      },
+      {
+       "label": "verse",
+       "target_duration_sec": 96.0,
+       "energy": "mid"
+      },
+      {
+       "label": "chorus",
+       "target_duration_sec": 96.0,
+       "energy": "high"
+      },
+      {
+       "label": "outro",
+       "target_duration_sec": 24.0,
+       "energy": "low"
+      }
+     ],
+     "lyrics_guidance": {
+      "mode": "generate_new",
+      "language_hint": "由用户指定",
+      "structure_lines_hint": {
+       "verse": "4-6 行/段",
+       "chorus": "4 行",
+       "chorus_repeat": 2
+      },
+      "rhyme_hint": "参考曲押韵结构未提取（需歌词权利）；建议 AABB 或 ABAB",
+      "theme": "由用户目标决定，禁止复用参考曲歌词意象堆砌"
+     },
+     "originality_guardrails": {
+      "reuse_reference_lyrics": false,
+      "reuse_reference_melody_notes": false,
+      "reuse_reference_audio_samples": false,
+      "statistical_style_inheritance_only": true,
+      "note": "风格规律通过统计特征继承；旋律与歌词必须原创产出"
+     },
+     "validation": {
+      "sources_count": 1,
+      "sections_count": 4,
+      "estimated_duration_sec": 240.0
+     },
+     "target_modifications": {
+      "bpm": "把生成请求 BPM 调整到 120.2",
+      "key": "指定调性 C major 或相对转换"
+     },
+     "revision_history": [
+      {
+       "based_on_evaluation": "eval_b51fcfcb108f",
+       "changes": [
+        {
+         "knob": "tempo_bpm",
+         "from": 120.2,
+         "to": "把生成请求 BPM 调整到 120.2"
+        },
+        {
+         "knob": "key",
+         "to": "指定调性 C major 或相对转换"
+        }
+       ]
+      }
+     ]
+    },
+    "revisions": [
+     {
+      "knob": "tempo_bpm",
+      "from": 120.2,
+      "to": "把生成请求 BPM 调整到 120.2"
+     },
+     {
+      "knob": "key",
+      "to": "指定调性 C major 或相对转换"
+     }
+    ],
+    "note": "修订只调整生成参数，不修改核心算法或覆盖原始结果"
+   }
+  ]
+ ]
+}

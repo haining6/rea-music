@@ -1,0 +1,36 @@
+# 运行时数据（缓存/任务/工件/实验记录不入库）
+data/
+# 虚拟环境
+.venv/
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+# 构建产物（wheel/sdist 由 CI 现场构建，不入库）
+dist/
+build/
+# 音频工件（合成夹具由 fixtures/make_fixtures.py 现场生成）
+*.wav
+# 外部引擎（各自独立仓库/许可，不入本库；本地自行安装）
+engines/
+# 内部过程文档（本地保留，不公开发布）
+docs/internal/
+# 临时脚本产物
+*.log
+
+# 本地配置与密钥（模板 config.example.json 必须入库，真实配置不入库）
+config.json
+config.yaml
+config.local.json
+.env
+.env.*
+*.local
+
+# 开发期缓存与覆盖率产物
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.DS_Store

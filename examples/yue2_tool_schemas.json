@@ -1,0 +1,3425 @@
+{
+ "studio_status": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "studio_wait": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string"
+   },
+   "until": {
+    "type": "string",
+    "enum": [
+     "idle",
+     "song_jobs",
+     "covers_and_karaoke",
+     "stems",
+     "midi",
+     "restore",
+     "processing",
+     "preparation",
+     "training"
+    ]
+   },
+   "seconds": {
+    "type": "integer"
+   }
+  },
+  "required": []
+ },
+ "studio_system": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_status": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_catalog": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_download": {
+  "type": "object",
+  "properties": {
+   "profile_id": {
+    "type": "string"
+   },
+   "ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": []
+ },
+ "models_adopt": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string",
+    "description": "folder with the model files"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "models_update_plan": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_update_apply": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_update_later": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "song_defaults": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_select": {
+  "type": "object",
+  "properties": {
+   "profile_id": {
+    "type": "string"
+   },
+   "component_ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": []
+ },
+ "models_own_list": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_own_select": {
+  "type": "object",
+  "properties": {
+   "file": {
+    "type": "string"
+   },
+   "community": {
+    "type": "string"
+   },
+   "quant": {
+    "type": "string",
+    "enum": [
+     "Q8_0",
+     "Q6_K"
+    ]
+   }
+  },
+  "required": []
+ },
+ "models_own_cancel": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_own_discard": {
+  "type": "object",
+  "properties": {
+   "community": {
+    "type": "string"
+   },
+   "quant": {
+    "type": "string",
+    "enum": [
+     "Q8_0",
+     "Q6_K"
+    ]
+   }
+  },
+  "required": [
+   "community"
+  ]
+ },
+ "models_own_remove": {
+  "type": "object",
+  "properties": {
+   "file": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "file"
+  ]
+ },
+ "models_own_reveal": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "engine_options_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "engine_options_set": {
+  "type": "object"
+ },
+ "engine_fitted_cache_reset": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "engine_restart": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "ui_screenshot": {
+  "type": "object",
+  "properties": {
+   "max_width": {
+    "type": "integer",
+    "description": "pixels, 1600 by default"
+   }
+  },
+  "required": []
+ },
+ "ui_read_page": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "ui_click": {
+  "type": "object",
+  "properties": {
+   "ref": {
+    "type": "string"
+   },
+   "text": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "ui_type": {
+  "type": "object",
+  "properties": {
+   "ref": {
+    "type": "string"
+   },
+   "text": {
+    "type": "string",
+    "description": "the field's label, when there is no ref"
+   },
+   "value": {
+    "type": "string"
+   },
+   "submit": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "value"
+  ]
+ },
+ "ui_select": {
+  "type": "object",
+  "properties": {
+   "ref": {
+    "type": "string"
+   },
+   "text": {
+    "type": "string"
+   },
+   "value": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "value"
+  ]
+ },
+ "ui_press_key": {
+  "type": "object",
+  "properties": {
+   "key": {
+    "type": "string",
+    "description": "the key"
+   }
+  },
+  "required": [
+   "key"
+  ]
+ },
+ "ui_scroll": {
+  "type": "object",
+  "properties": {
+   "direction": {
+    "type": "string",
+    "enum": [
+     "down",
+     "up"
+    ]
+   },
+   "amount": {
+    "type": "integer"
+   },
+   "ref": {
+    "type": "string"
+   },
+   "text": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "ui_navigate": {
+  "type": "object",
+  "properties": {
+   "view": {
+    "type": "string",
+    "enum": [
+     "create",
+     "library",
+     "search",
+     "playlist",
+     "adapters",
+     "tools",
+     "news"
+    ]
+   }
+  },
+  "required": [
+   "view"
+  ]
+ },
+ "ui_open_settings": {
+  "type": "object",
+  "properties": {
+   "section": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "assistant_requests_wait": {
+  "type": "object",
+  "properties": {
+   "seconds": {
+    "type": "integer"
+   }
+  },
+  "required": []
+ },
+ "assistant_request_answer": {
+  "type": "object",
+  "properties": {
+   "request_id": {
+    "type": "string"
+   },
+   "answer": {
+    "anyOf": [
+     {
+      "type": "object"
+     },
+     {
+      "type": "string"
+     }
+    ]
+   }
+  },
+  "required": [
+   "request_id",
+   "answer"
+  ]
+ },
+ "ui_notify": {
+  "type": "object",
+  "properties": {
+   "text": {
+    "type": "string"
+   },
+   "tone": {
+    "type": "string",
+    "enum": [
+     "info",
+     "success",
+     "error"
+    ]
+   }
+  },
+  "required": [
+   "text"
+  ]
+ },
+ "ui_console": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "create_form_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "create_form_set": {
+  "type": "object",
+  "properties": {
+   "fields": {
+    "type": "object",
+    "description": "field -> value"
+   }
+  },
+  "required": [
+   "fields"
+  ]
+ },
+ "create_form_submit": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "player_state": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "player_play": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "song_ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   },
+   "stem": {
+    "type": "string",
+    "enum": [
+     "drums",
+     "bass",
+     "other",
+     "vocals",
+     "guitar",
+     "piano"
+    ]
+   }
+  },
+  "required": []
+ },
+ "player_pause": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "player_seek": {
+  "type": "object",
+  "properties": {
+   "seconds": {
+    "type": "number"
+   }
+  },
+  "required": [
+   "seconds"
+  ]
+ },
+ "player_next": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "player_previous": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "player_queue_add": {
+  "type": "object",
+  "properties": {
+   "song_ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   },
+   "next": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "song_ids"
+  ]
+ },
+ "player_set": {
+  "type": "object",
+  "properties": {
+   "volume": {
+    "type": "number"
+   },
+   "shuffle": {
+    "type": "boolean"
+   },
+   "repeat": {
+    "type": "string",
+    "enum": [
+     "none",
+     "all",
+     "one",
+     "stop"
+    ],
+    "description": "stop: play the current track to its end and stay there"
+   }
+  },
+  "required": []
+ },
+ "equalizer_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "equalizer_set": {
+  "type": "object",
+  "properties": {
+   "preset": {
+    "type": "string"
+   },
+   "bands": {
+    "anyOf": [
+     {
+      "type": "array",
+      "items": {
+       "type": "number"
+      },
+      "minItems": 10,
+      "maxItems": 10
+     },
+     {
+      "type": "object"
+     }
+    ]
+   },
+   "preamp_db": {
+    "type": "number"
+   },
+   "enabled": {
+    "type": "boolean"
+   },
+   "balance": {
+    "type": "number",
+    "minimum": -1,
+    "maximum": 1
+   },
+   "mono": {
+    "type": "boolean"
+   },
+   "panel_open": {
+    "type": "boolean"
+   },
+   "panel_position": {
+    "type": "object",
+    "properties": {
+     "x": {
+      "type": "number"
+     },
+     "y": {
+      "type": "number"
+     }
+    }
+   },
+   "save_preset": {
+    "type": "string"
+   },
+   "delete_preset": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "equalizer_import": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "equalizer_export": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string"
+   },
+   "name": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "visualizer_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "visualizer_set": {
+  "type": "object",
+  "properties": {
+   "place": {
+    "type": "string",
+    "enum": [
+     "closed",
+     "panel",
+     "window"
+    ]
+   },
+   "fullscreen": {
+    "type": "boolean"
+   },
+   "engine": {
+    "type": "string",
+    "enum": [
+     "milkdrop",
+     "spectrum"
+    ]
+   },
+   "preset": {
+    "type": "string"
+   },
+   "look": {
+    "type": "string"
+   },
+   "step": {
+    "type": "string",
+    "enum": [
+     "next",
+     "previous"
+    ]
+   },
+   "locked": {
+    "type": "boolean"
+   },
+   "random": {
+    "type": "boolean"
+   },
+   "show_name": {
+    "type": "boolean"
+   },
+   "cycle_seconds": {
+    "type": "number",
+    "minimum": 3
+   },
+   "panel_size": {
+    "type": "object",
+    "properties": {
+     "width": {
+      "type": "number"
+     },
+     "height": {
+      "type": "number"
+     }
+    }
+   },
+   "panel_position": {
+    "type": "object",
+    "properties": {
+     "x": {
+      "type": "number"
+     },
+     "y": {
+      "type": "number"
+     }
+    }
+   }
+  },
+  "required": []
+ },
+ "visualizer_presets": {
+  "type": "object",
+  "properties": {
+   "search": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "winamp_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "winamp_set": {
+  "type": "object",
+  "properties": {
+   "on": {
+    "type": "boolean"
+   },
+   "skin": {
+    "type": "string"
+   },
+   "random_skin": {
+    "type": "boolean"
+   },
+   "double_size": {
+    "type": "boolean"
+   },
+   "always_on_top": {
+    "type": "boolean"
+   },
+   "scale": {
+    "type": "number",
+    "minimum": 1,
+    "maximum": 3
+   },
+   "skip_menu": {
+    "type": "boolean"
+   },
+   "windows": {
+    "type": "object"
+   },
+   "song_id": {
+    "type": "string"
+   },
+   "action": {
+    "type": "string",
+    "enum": [
+     "play",
+     "pause",
+     "stop",
+     "next",
+     "previous"
+    ]
+   },
+   "seek_seconds": {
+    "type": "number"
+   },
+   "volume": {
+    "type": "number"
+   },
+   "balance": {
+    "type": "number"
+   },
+   "shuffle": {
+    "type": "boolean"
+   },
+   "repeat": {
+    "type": "boolean"
+   },
+   "equalizer": {
+    "type": "object",
+    "properties": {
+     "on": {
+      "type": "boolean"
+     },
+     "preamp": {
+      "type": "number"
+     },
+     "bands": {
+      "type": "array",
+      "items": {
+       "type": "number"
+      }
+     }
+    }
+   },
+   "milkdrop": {
+    "type": "object",
+    "properties": {
+     "preset": {
+      "type": "string"
+     },
+     "next": {
+      "type": "boolean"
+     },
+     "random": {
+      "type": "boolean"
+     },
+     "cycling": {
+      "type": "boolean"
+     }
+    }
+   }
+  },
+  "required": []
+ },
+ "winamp_skins": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "winamp_skin_add": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string"
+   },
+   "name": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "winamp_museum": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "video_open": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "video_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "video_set": {
+  "type": "object",
+  "properties": {
+   "config": {
+    "type": "object"
+   },
+   "effects": {
+    "type": "object"
+   },
+   "intensities": {
+    "type": "object"
+   },
+   "text_layers": {
+    "type": "array",
+    "items": {
+     "type": "object"
+    }
+   },
+   "lyrics": {
+    "type": "object"
+   },
+   "background": {
+    "type": "object"
+   },
+   "album_art_path": {
+    "type": "string"
+   },
+   "album_art": {
+    "anyOf": [
+     {
+      "type": "string"
+     },
+     {
+      "type": "null"
+     }
+    ]
+   }
+  },
+  "required": []
+ },
+ "video_render": {
+  "type": "object",
+  "properties": {
+   "name": {
+    "type": "string",
+    "description": "file name, the song title by default"
+   }
+  },
+  "required": []
+ },
+ "video_play": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "video_pause": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "video_seek": {
+  "type": "object",
+  "properties": {
+   "seconds": {
+    "type": "number"
+   }
+  },
+  "required": [
+   "seconds"
+  ]
+ },
+ "video_close": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "song_create": {
+  "type": "object",
+  "properties": {
+   "style": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "title": {
+    "type": "string"
+   },
+   "abc": {
+    "type": "string"
+   },
+   "solver": {
+    "type": "string",
+    "enum": [
+     "midpoint",
+     "ab2"
+    ],
+    "description": "acoustic ODE solver: midpoint is the reference; ab2 spends one network evaluation a step instead of two, about twice as fast at the same steps, and sounds the same"
+   },
+   "abc_continue": {
+    "type": "boolean",
+    "description": "abc is only the opening (a hummed or played seed, from score_transcribe or the MIDI editor): the model writes the rest of the song on from it in its key and meter, and the opening comes back as a hook"
+   },
+   "transpose": {
+    "type": "integer",
+    "minimum": -24,
+    "maximum": 24,
+    "description": "move a supplied abc score before singing; requires full or melody cot and no semantic_tokens"
+   },
+   "lyric_timing": {
+    "type": "boolean",
+    "description": "with a supplied abc score, each section's words wait until the score reaches it, so the voice keeps to the band; on unless false"
+   },
+   "vocals_only": {
+    "type": "boolean",
+    "description": "extract vocals after synthesis using the installed separator; output_format must be mp3 or wav32"
+   },
+   "fade_in": {
+    "type": "number",
+    "minimum": 0,
+    "description": "seconds the studio fades the made song in over; 0 or absent leaves the start as sung"
+   },
+   "fade_out": {
+    "type": "number",
+    "minimum": 0,
+    "description": "seconds the studio fades the made song out over at its end; 0 or absent leaves the end as sung"
+   },
+   "playlist_id": {
+    "type": "string",
+    "description": "a playlist (see playlist_list) the made songs are added to"
+   },
+   "cot": {
+    "type": "string",
+    "enum": [
+     "full",
+     "melody",
+     "off"
+    ]
+   },
+   "duration_seconds": {
+    "type": "number"
+   },
+   "seed": {
+    "type": "integer"
+   },
+   "lm_seed": {
+    "type": "integer"
+   },
+   "steps": {
+    "type": "integer"
+   },
+   "cfg_scale": {
+    "type": "number"
+   },
+   "companion_scale": {
+    "type": "number",
+    "minimum": 0,
+    "maximum": 1,
+    "description": "strength of the realaudio decoder adapter under the song; left out, 0 (the YuE2 checkpoint alone, as audio.cpp and ComfyUI render it), or 1 under a LoRA trained in the studio"
+   },
+   "lm_batch_size": {
+    "type": "integer",
+    "description": "compositions written from the request (1 by default)"
+   },
+   "synth_batch_size": {
+    "type": "integer",
+    "description": "performances rendered of each composition (1 by default)"
+   },
+   "semantic_tokens": {
+    "type": "string",
+    "description": "audio codes of a song already sung (library_song_get audio_codes): renders that take again"
+   },
+   "harmony": {
+    "type": "object",
+    "description": "chord variety and section order of the score the model plans (also after an abc opening with abc_continue; ignored with a whole abc score): strength 0-64 lowers chords heard among the recent changes (about 6-10 breaks a looping progression), identity root (C, Cmaj7, C/E one chord) or spelling, window 1-512 recent changes, hold_limit 0-64 symbols one root holds for free, outside_bonus 0-20 favours roots outside the key (root identity) while fewer than outside_limit 0-1 of the changes are outside, section_strength 0-64 keeps a section from opening like the one before, section_open 1-16 chords compared, follow_lyrics true holds the plan to the lyrics' sections in order",
+    "properties": {
+     "identity": {
+      "type": "string",
+      "enum": [
+       "root",
+       "spelling"
+      ]
+     },
+     "strength": {
+      "type": "number"
+     },
+     "window": {
+      "type": "integer"
+     },
+     "hold_limit": {
+      "type": "integer"
+     },
+     "outside_bonus": {
+      "type": "number"
+     },
+     "outside_limit": {
+      "type": "number"
+     },
+     "section_strength": {
+      "type": "number"
+     },
+     "section_open": {
+      "type": "integer"
+     },
+     "follow_lyrics": {
+      "type": "boolean"
+     }
+    }
+   },
+   "abc_sampling": {
+    "type": "object",
+    "description": "temperature, top_p, top_k, repetition_penalty, penalty_window, min_tokens, max_tokens",
+    "properties": {
+     "temperature": {
+      "type": "number"
+     },
+     "top_p": {
+      "type": "number"
+     },
+     "top_k": {
+      "type": "integer"
+     },
+     "repetition_penalty": {
+      "type": "number"
+     },
+     "penalty_window": {
+      "type": "integer"
+     },
+     "min_tokens": {
+      "type": "integer"
+     },
+     "max_tokens": {
+      "type": "integer"
+     }
+    }
+   },
+   "semantic_sampling": {
+    "type": "object",
+    "description": "temperature, top_p, top_k, repetition_penalty, penalty_window, min_tokens, max_tokens",
+    "properties": {
+     "temperature": {
+      "type": "number"
+     },
+     "top_p": {
+      "type": "number"
+     },
+     "top_k": {
+      "type": "integer"
+     },
+     "repetition_penalty": {
+      "type": "number"
+     },
+     "penalty_window": {
+      "type": "integer"
+     },
+     "min_tokens": {
+      "type": "integer"
+     },
+     "max_tokens": {
+      "type": "integer"
+     }
+    }
+   },
+   "mp3_bitrate": {
+    "type": "integer"
+   },
+   "output_format": {
+    "type": "string",
+    "enum": [
+     "flac",
+     "mp3"
+    ],
+    "description": "how the song is kept: lossless FLAC (default), or MP3 at mp3_bitrate"
+   },
+   "cover_prompt": {
+    "type": "string",
+    "description": "what the cover should show; it is drawn only when an image model is set up (settings_get, covers), else the song has no cover"
+   },
+   "cover_of": {
+    "type": "string",
+    "description": "for a cover: the library song whose melody abc came from (score_transcribe of it); the new song names it as the track it was made from"
+   },
+   "adapters": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "properties": {
+      "id": {
+       "type": "string"
+      },
+      "scales": {
+       "type": "object",
+       "description": "slot -> strength, e.g. {\"ar\": 1, \"nar\": 1}; left out, the LoRA's own strengths, else 1 on each slot it touches"
+      }
+     },
+     "required": [
+      "id"
+     ]
+    }
+   }
+  },
+  "required": [
+   "style"
+  ]
+ },
+ "song_job_get": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "from song_create or song_replay"
+   },
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ],
+    "description": "detailed gives every field"
+   }
+  },
+  "required": [
+   "job_id"
+  ]
+ },
+ "song_jobs_list": {
+  "type": "object",
+  "properties": {
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ],
+    "description": "detailed gives every field"
+   }
+  },
+  "required": []
+ },
+ "song_job_cancel": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "the job to stop"
+   }
+  },
+  "required": [
+   "job_id"
+  ]
+ },
+ "song_replay": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "steps": {
+    "type": "integer"
+   },
+   "solver": {
+    "type": "string",
+    "enum": [
+     "midpoint",
+     "ab2"
+    ]
+   },
+   "seed": {
+    "type": "integer"
+   },
+   "synth_batch_size": {
+    "type": "integer"
+   },
+   "output_format": {
+    "type": "string",
+    "enum": [
+     "flac",
+     "mp3"
+    ]
+   },
+   "title": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "song_tokenize": {
+  "type": "object",
+  "properties": {
+   "style": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "cot": {
+    "type": "string",
+    "enum": [
+     "full",
+     "melody",
+     "off"
+    ]
+   }
+  },
+  "required": [
+   "lyrics"
+  ]
+ },
+ "score_compose": {
+  "type": "object",
+  "properties": {
+   "style": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "cot": {
+    "type": "string",
+    "enum": [
+     "full",
+     "melody"
+    ]
+   },
+   "lm_seed": {
+    "type": "integer"
+   },
+   "lm_batch_size": {
+    "type": "integer",
+    "minimum": 1,
+    "maximum": 8
+   },
+   "abc": {
+    "type": "string",
+    "description": "an opening the plan goes on from; the plans begin with it"
+   },
+   "harmony": {
+    "type": "object",
+    "description": "chord variety and section order of the score the model plans (with an abc opening, of the rest it writes): strength 0-64 lowers chords heard among the recent changes (about 6-10 breaks a looping progression), identity root (C, Cmaj7, C/E one chord) or spelling, window 1-512 recent changes, hold_limit 0-64 symbols one root holds for free, outside_bonus 0-20 favours roots outside the key (root identity) while fewer than outside_limit 0-1 of the changes are outside, section_strength 0-64 keeps a section from opening like the one before, section_open 1-16 chords compared, follow_lyrics true holds the plan to the lyrics' sections in order",
+    "properties": {
+     "identity": {
+      "type": "string",
+      "enum": [
+       "root",
+       "spelling"
+      ]
+     },
+     "strength": {
+      "type": "number"
+     },
+     "window": {
+      "type": "integer"
+     },
+     "hold_limit": {
+      "type": "integer"
+     },
+     "outside_bonus": {
+      "type": "number"
+     },
+     "outside_limit": {
+      "type": "number"
+     },
+     "section_strength": {
+      "type": "number"
+     },
+     "section_open": {
+      "type": "integer"
+     },
+     "follow_lyrics": {
+      "type": "boolean"
+     }
+    }
+   }
+  },
+  "required": [
+   "style"
+  ]
+ },
+ "score_chord_bed": {
+  "type": "object",
+  "properties": {
+   "bpm": {
+    "type": "integer",
+    "minimum": 40,
+    "maximum": 240
+   },
+   "key": {
+    "type": "string",
+    "description": "tonic and m for minor: Em, F#m, Bb"
+   },
+   "meter": {
+    "type": "string",
+    "enum": [
+     "4/4",
+     "3/4",
+     "6/8",
+     "2/4"
+    ]
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "seed": {
+    "type": "integer"
+   }
+  },
+  "required": [
+   "bpm",
+   "key",
+   "meter"
+  ]
+ },
+ "score_job_get": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "from score_compose or score_transcribe"
+   }
+  },
+  "required": [
+   "job_id"
+  ]
+ },
+ "score_job_cancel": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "the job to stop"
+   }
+  },
+  "required": [
+   "job_id"
+  ]
+ },
+ "score_transcribe": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string"
+   },
+   "melody_only": {
+    "type": "boolean"
+   }
+  },
+  "required": []
+ },
+ "score_match_sections": {
+  "type": "object",
+  "properties": {
+   "abc": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "song_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string"
+   },
+   "language": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "abc",
+   "lyrics"
+  ]
+ },
+ "writing_guide": {
+  "type": "object",
+  "properties": {
+   "topic": {
+    "type": "string",
+    "enum": [
+     "song",
+     "style",
+     "lyrics",
+     "score",
+     "transcript",
+     "sections"
+    ]
+   }
+  },
+  "required": []
+ },
+ "writing_examples": {
+  "type": "object",
+  "properties": {
+   "brief": {
+    "type": "string",
+    "description": "the idea, genre or mood"
+   }
+  },
+  "required": [
+   "brief"
+  ]
+ },
+ "assistant_sections": {
+  "type": "object",
+  "properties": {
+   "lyrics": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "lyrics"
+  ]
+ },
+ "assistant_write": {
+  "type": "object",
+  "properties": {
+   "target": {
+    "type": "string",
+    "enum": [
+     "all",
+     "lyrics",
+     "style",
+     "score",
+     "transcript"
+    ]
+   },
+   "description": {
+    "type": "string",
+    "description": "The idea, or the text to work on"
+   },
+   "instruction": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "style": {
+    "type": "string"
+   },
+   "abc": {
+    "type": "string"
+   },
+   "duration_seconds": {
+    "type": "number"
+   }
+  },
+  "required": [
+   "target"
+  ]
+ },
+ "assistant_status": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "library_songs_list": {
+  "type": "object",
+  "properties": {
+   "query": {
+    "type": "string"
+   },
+   "since": {
+    "type": "string"
+   },
+   "until": {
+    "type": "string"
+   },
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ]
+   }
+  },
+  "required": []
+ },
+ "library_liked": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "library_song_like": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "liked": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "library_song_get": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   },
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ],
+    "description": "detailed gives every field"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "library_song_update": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "song": {
+    "type": "object"
+   }
+  },
+  "required": [
+   "song_id",
+   "song"
+  ]
+ },
+ "library_song_delete": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "library_trash_list": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "library_trash_restore": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "song id in the bin"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "library_trash_delete": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "song id in the bin"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "library_trash_empty": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "library_import_audio": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string"
+   },
+   "title": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "library_file_tags_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "library_file_tags_set": {
+  "type": "object",
+  "properties": {
+   "settings": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "settings"
+  ]
+ },
+ "playlist_list": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "playlist_create": {
+  "type": "object",
+  "properties": {
+   "name": {
+    "type": "string"
+   },
+   "description": {
+    "type": "string"
+   },
+   "song_ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "name"
+  ]
+ },
+ "playlist_update": {
+  "type": "object",
+  "properties": {
+   "playlist_id": {
+    "type": "string"
+   },
+   "name": {
+    "type": "string"
+   },
+   "description": {
+    "type": "string"
+   },
+   "song_ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "playlist_id",
+   "name"
+  ]
+ },
+ "playlist_delete": {
+  "type": "object",
+  "properties": {
+   "playlist_id": {
+    "type": "string",
+    "description": "playlist id"
+   }
+  },
+  "required": [
+   "playlist_id"
+  ]
+ },
+ "cover_draw": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "cover_templates_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "cover_templates_set": {
+  "type": "object"
+ },
+ "karaoke_make": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "language": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "stems_split": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "stems_get": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "restore_status": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "restore_start": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string",
+    "description": "an audio file on this computer, instead of song_id"
+   }
+  },
+  "required": []
+ },
+ "restore_install": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "restore_remove": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "restore_cancel": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "midi_status": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "midi_transcribe": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "song_ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    },
+    "description": "several library tracks, turned into MIDI one after another, instead of song_id"
+   },
+   "path": {
+    "type": "string",
+    "description": "an audio file on this computer, instead of song_id"
+   },
+   "size": {
+    "type": "string",
+    "enum": [
+     "small",
+     "medium",
+     "large"
+    ]
+   }
+  },
+  "required": []
+ },
+ "midi_get": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ],
+    "description": "detailed gives every note"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "midi_delete": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "midi_install": {
+  "type": "object",
+  "properties": {
+   "size": {
+    "type": "string",
+    "enum": [
+     "small",
+     "medium",
+     "large"
+    ]
+   }
+  },
+  "required": []
+ },
+ "midi_remove": {
+  "type": "object",
+  "properties": {
+   "size": {
+    "type": "string",
+    "enum": [
+     "small",
+     "medium",
+     "large"
+    ]
+   }
+  },
+  "required": [
+   "size"
+  ]
+ },
+ "midi_cancel": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "processing_start": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "denoise": {
+    "type": "object"
+   },
+   "lifter": {
+    "type": "object"
+   },
+   "naturalize": {
+    "type": "object"
+   },
+   "vst": {
+    "type": "array"
+   },
+   "master": {
+    "type": "object"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "processing_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "processing_keep": {
+  "type": "object",
+  "properties": {
+   "label": {
+    "type": "string",
+    "description": "what the processing is called on the new track; its stages when left out"
+   }
+  },
+  "required": []
+ },
+ "processing_discard": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "lora_list": {
+  "type": "object",
+  "properties": {
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ],
+    "description": "detailed gives every field"
+   }
+  },
+  "required": []
+ },
+ "lora_install_catalog": {
+  "type": "object",
+  "properties": {
+   "ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "ids"
+  ]
+ },
+ "lora_search_hf": {
+  "type": "object",
+  "properties": {
+   "q": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "lora_hf_files": {
+  "type": "object",
+  "properties": {
+   "repo": {
+    "type": "string",
+    "description": "owner/name"
+   }
+  },
+  "required": [
+   "repo"
+  ]
+ },
+ "lora_install_hf": {
+  "type": "object",
+  "properties": {
+   "repo": {
+    "type": "string"
+   },
+   "paths": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "repo",
+   "paths"
+  ]
+ },
+ "lora_update": {
+  "type": "object",
+  "properties": {
+   "lora_id": {
+    "type": "string"
+   },
+   "name": {
+    "type": "string"
+   },
+   "trigger": {
+    "type": "string"
+   },
+   "scales": {
+    "type": "object"
+   }
+  },
+  "required": [
+   "lora_id"
+  ]
+ },
+ "lora_delete": {
+  "type": "object",
+  "properties": {
+   "lora_id": {
+    "type": "string",
+    "description": "installed LoRA id"
+   }
+  },
+  "required": [
+   "lora_id"
+  ]
+ },
+ "models_cancel_download": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "models_remove": {
+  "type": "object",
+  "properties": {
+   "ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "ids"
+  ]
+ },
+ "engine_logs": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "diagnostics_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "diagnostics_report": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "problem_preview": {
+  "type": "object",
+  "properties": {
+   "kind": {
+    "type": "string",
+    "enum": [
+     "bug",
+     "idea",
+     "question"
+    ]
+   },
+   "what": {
+    "type": "string"
+   },
+   "steps": {
+    "type": "string"
+   },
+   "expected": {
+    "type": "string"
+   },
+   "attach_log": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "what"
+  ]
+ },
+ "problem_report": {
+  "type": "object",
+  "properties": {
+   "kind": {
+    "type": "string",
+    "enum": [
+     "bug",
+     "idea",
+     "question"
+    ]
+   },
+   "what": {
+    "type": "string"
+   },
+   "steps": {
+    "type": "string"
+   },
+   "expected": {
+    "type": "string"
+   },
+   "attach_log": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "what"
+  ]
+ },
+ "studio_capabilities": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "settings_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "settings_set": {
+  "type": "object"
+ },
+ "studio_open_data_folder": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "assistant_set": {
+  "type": "object",
+  "properties": {
+   "provider": {
+    "type": "string",
+    "enum": [
+     "none",
+     "local",
+     "managed",
+     "openrouter",
+     "agent",
+     "cli"
+    ]
+   },
+   "local_base_url": {
+    "type": "string"
+   },
+   "local_model": {
+    "type": "string"
+   },
+   "managed_model": {
+    "type": "string"
+   },
+   "managed_path": {
+    "type": "string"
+   },
+   "openrouter_model": {
+    "type": "string"
+   },
+   "cli_agent": {
+    "type": "string"
+   },
+   "cli_model": {
+    "type": "string"
+   },
+   "cli_path": {
+    "type": "string"
+   },
+   "reasoning_effort": {
+    "type": "string"
+   },
+   "own_rules": {
+    "type": "object",
+    "properties": {
+     "song": {
+      "type": "string"
+     },
+     "style": {
+      "type": "string"
+     },
+     "lyrics": {
+      "type": "string"
+     }
+    }
+   },
+   "avoid_words": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "assistant_local_models": {
+  "type": "object",
+  "properties": {
+   "base": {
+    "type": "string",
+    "description": "the server's base URL, e.g. http://127.0.0.1:1234/v1"
+   }
+  },
+  "required": [
+   "base"
+  ]
+ },
+ "assistant_cli_agents": {
+  "type": "object",
+  "properties": {},
+  "required": []
+ },
+ "assistant_runtime": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "assistant_model_install": {
+  "type": "object",
+  "properties": {
+   "asset_id": {
+    "type": "string"
+   },
+   "model_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "asset_id"
+  ]
+ },
+ "assistant_model_remove": {
+  "type": "object",
+  "properties": {
+   "asset_id": {
+    "type": "string"
+   },
+   "model_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "asset_id"
+  ]
+ },
+ "assistant_cancel_download": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "assistant_start": {
+  "type": "object",
+  "properties": {
+   "model_id": {
+    "type": "string"
+   },
+   "model_path": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "model_id"
+  ]
+ },
+ "assistant_stop": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "karaoke_settings_get": {
+  "type": "object",
+  "properties": {
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ],
+    "description": "detailed gives every file of every model"
+   }
+  },
+  "required": []
+ },
+ "karaoke_settings_set": {
+  "type": "object",
+  "properties": {
+   "enabled": {
+    "type": "boolean"
+   },
+   "provider": {
+    "type": "string"
+   },
+   "whisper_model": {
+    "type": "string"
+   },
+   "openrouter_model": {
+    "type": "string"
+   },
+   "runtime": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "recogniser_install": {
+  "type": "object",
+  "properties": {
+   "asset_id": {
+    "type": "string"
+   },
+   "model_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "asset_id"
+  ]
+ },
+ "recogniser_remove": {
+  "type": "object",
+  "properties": {
+   "asset_id": {
+    "type": "string"
+   },
+   "model_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "asset_id"
+  ]
+ },
+ "recogniser_cancel_download": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "karaoke_delete": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "karaoke_set": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string"
+   },
+   "lrc": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "separator_status": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "separator_runtime": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "separator_runtime_install": {
+  "type": "object",
+  "properties": {
+   "asset_id": {
+    "type": "string",
+    "description": "runtime asset id"
+   }
+  },
+  "required": [
+   "asset_id"
+  ]
+ },
+ "separator_cancel_download": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "separator_install": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "separator_remove": {
+  "type": "object",
+  "properties": {
+   "asset_id": {
+    "type": "string",
+    "enum": [
+     "htdemucs",
+     "roformer"
+    ]
+   }
+  },
+  "required": []
+ },
+ "separator_settings_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "separator_settings_set": {
+  "type": "object"
+ },
+ "library_song_files": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string",
+    "description": "library song id"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "cover_set_from_file": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id",
+   "path"
+  ]
+ },
+ "library_version_select": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "version": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id",
+   "version"
+  ]
+ },
+ "library_version_delete": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "version": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id",
+   "version"
+  ]
+ },
+ "cover_prompt_render": {
+  "type": "object",
+  "properties": {
+   "template": {
+    "type": "string"
+   },
+   "song_id": {
+    "type": "string"
+   },
+   "title": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "template"
+  ]
+ },
+ "openrouter_status": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "openrouter_set_key": {
+  "type": "object",
+  "properties": {
+   "api_key": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "api_key"
+  ]
+ },
+ "openrouter_catalog": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "openrouter_catalog_refresh": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "openrouter_log": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "openrouter_complete": {
+  "type": "object",
+  "properties": {
+   "model_id": {
+    "type": "string"
+   },
+   "prompt": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "model_id",
+   "prompt"
+  ]
+ },
+ "openrouter_cover": {
+  "type": "object",
+  "properties": {
+   "model_id": {
+    "type": "string"
+   },
+   "prompt": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "model_id",
+   "prompt"
+  ]
+ },
+ "openrouter_transcribe": {
+  "type": "object",
+  "properties": {
+   "model_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string"
+   },
+   "language": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "model_id",
+   "path"
+  ]
+ },
+ "lyrics_recognise": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string"
+   },
+   "language": {
+    "type": "string"
+   }
+  },
+  "required": []
+ },
+ "processing_set_reference": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string",
+    "description": "reference audio file"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "vst_list": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "vst_scan": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "vst_open_editor": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string"
+   },
+   "state_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "lora_import_folder": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string",
+    "description": "the folder, e.g. the LoRA folder ComfyUI or a trainer uses"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "lora_import_files": {
+  "type": "object",
+  "properties": {
+   "name": {
+    "type": "string"
+   },
+   "paths": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "name",
+   "paths"
+  ]
+ },
+ "lora_cancel_download": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "dataset_import_folder": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string",
+    "description": "the dataset folder"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "dataset_reveal": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string",
+    "description": "dataset id"
+   }
+  },
+  "required": [
+   "dataset_id"
+  ]
+ },
+ "dataset_song_files": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "song_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "dataset_id",
+   "song_id"
+  ]
+ },
+ "training_pack_cancel": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "dataset_prepare_train_after": {
+  "type": "object",
+  "properties": {
+   "train": {
+    "anyOf": [
+     {
+      "type": "object"
+     },
+     {
+      "type": "null"
+     }
+    ]
+   }
+  },
+  "required": []
+ },
+ "training_status": {
+  "type": "object",
+  "properties": {
+   "response_format": {
+    "type": "string",
+    "enum": [
+     "concise",
+     "detailed"
+    ]
+   }
+  },
+  "required": []
+ },
+ "dataset_get": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "song_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "dataset_id"
+  ]
+ },
+ "training_pack_install": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "training_listen_pack_install": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "dataset_create": {
+  "type": "object",
+  "properties": {
+   "name": {
+    "type": "string"
+   },
+   "trigger": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "name"
+  ]
+ },
+ "dataset_add_folder": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string",
+    "description": "folder or single audio file"
+   }
+  },
+  "required": [
+   "dataset_id",
+   "path"
+  ]
+ },
+ "dataset_add_library_songs": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "song_ids": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "dataset_id",
+   "song_ids"
+  ]
+ },
+ "dataset_update": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "name": {
+    "type": "string"
+   },
+   "trigger": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "dataset_id"
+  ]
+ },
+ "dataset_delete": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string",
+    "description": "dataset id"
+   }
+  },
+  "required": [
+   "dataset_id"
+  ]
+ },
+ "dataset_song_update": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "song_id": {
+    "type": "string"
+   },
+   "title": {
+    "type": "string"
+   },
+   "artist": {
+    "type": "string"
+   },
+   "style": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "instrumental": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "dataset_id",
+   "song_id"
+  ]
+ },
+ "dataset_song_delete": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "song_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "dataset_id",
+   "song_id"
+  ]
+ },
+ "lyrics_syllables": {
+  "type": "object",
+  "properties": {
+   "lyrics": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "lyrics"
+  ]
+ },
+ "lyrics_find": {
+  "type": "object",
+  "properties": {
+   "artist": {
+    "type": "string"
+   },
+   "title": {
+    "type": "string"
+   },
+   "seconds": {
+    "type": "number"
+   }
+  },
+  "required": [
+   "title"
+  ]
+ },
+ "dataset_prepare": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   },
+   "lyrics": {
+    "type": "string",
+    "enum": [
+     "none",
+     "missing",
+     "all"
+    ]
+   },
+   "style": {
+    "type": "string",
+    "enum": [
+     "none",
+     "missing",
+     "all"
+    ]
+   },
+   "language": {
+    "type": "string",
+    "description": "sung language code when known, e.g. ru"
+   },
+   "train": {
+    "type": "object",
+    "description": "not with writer agent: start the training once you have written the songs",
+    "properties": {
+     "name": {
+      "type": "string"
+     },
+     "recipe": {
+      "type": "object"
+     }
+    }
+   },
+   "writer": {
+    "type": "string",
+    "enum": [
+     "studio",
+     "agent"
+    ],
+    "description": "agent: the studio finds, recognises and listens, and leaves the lyric layout and the styles to you - songs stay lyrics_state 'found' (lyrics as found, lyrics_source says from where) and style_state 'heard' (heard: genre, caption, bpm); write them with dataset_song_update, following writing_guide"
+   }
+  },
+  "required": [
+   "dataset_id"
+  ]
+ },
+ "lora_export_comfyui": {
+  "type": "object",
+  "properties": {
+   "lora_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string"
+   },
+   "ar": {
+    "type": "number"
+   },
+   "nar": {
+    "type": "number"
+   }
+  },
+  "required": [
+   "lora_id",
+   "path"
+  ]
+ },
+ "library_song_describe_style": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id"
+  ]
+ },
+ "recording_describe_style": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "dataset_take_as_is": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  },
+  "required": [
+   "dataset_id"
+  ]
+ },
+ "dataset_prepare_cancel": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "training_start": {
+  "type": "object",
+  "properties": {
+   "dataset_id": {
+    "type": "string"
+   },
+   "name": {
+    "type": "string"
+   },
+   "recipe": {
+    "type": "object"
+   }
+  },
+  "required": [
+   "dataset_id",
+   "recipe"
+  ]
+ },
+ "training_continue": {
+  "type": "object",
+  "properties": {
+   "run_id": {
+    "type": "string"
+   },
+   "steps": {
+    "type": "integer",
+    "description": "the total steps to reach, above resume_step"
+   }
+  },
+  "required": [
+   "run_id",
+   "steps"
+  ]
+ },
+ "training_cancel": {
+  "type": "object",
+  "properties": {
+   "run_id": {
+    "type": "string",
+    "description": "training run id"
+   }
+  },
+  "required": [
+   "run_id"
+  ]
+ },
+ "training_checkpoint_install": {
+  "type": "object",
+  "properties": {
+   "run_id": {
+    "type": "string"
+   },
+   "step": {
+    "type": "integer"
+   },
+   "name": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "run_id",
+   "step"
+  ]
+ },
+ "training_run_delete": {
+  "type": "object",
+  "properties": {
+   "run_id": {
+    "type": "string",
+    "description": "training run id"
+   }
+  },
+  "required": [
+   "run_id"
+  ]
+ },
+ "network_proxy_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "network_proxy_set": {
+  "type": "object",
+  "properties": {
+   "mode": {
+    "type": "string",
+    "enum": [
+     "off",
+     "system",
+     "custom"
+    ]
+   },
+   "address": {
+    "type": "string",
+    "description": "host:port of a custom proxy"
+   },
+   "kind": {
+    "type": "string",
+    "enum": [
+     "http",
+     "https",
+     "socks5",
+     "socks4"
+    ]
+   },
+   "huggingface_mirror": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "mode",
+   "kind",
+   "huggingface_mirror"
+  ]
+ },
+ "network_proxy_test": {
+  "type": "object",
+  "properties": {
+   "mode": {
+    "type": "string",
+    "enum": [
+     "off",
+     "system",
+     "custom"
+    ]
+   },
+   "address": {
+    "type": "string"
+   },
+   "kind": {
+    "type": "string",
+    "enum": [
+     "http",
+     "https",
+     "socks5",
+     "socks4"
+    ]
+   },
+   "huggingface_mirror": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "mode",
+   "kind",
+   "huggingface_mirror"
+  ]
+ },
+ "network_access_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "network_access_set": {
+  "type": "object",
+  "properties": {
+   "enabled": {
+    "type": "boolean"
+   },
+   "new_key": {
+    "type": "boolean"
+   }
+  },
+  "required": []
+ },
+ "runtime_status": {
+  "type": "object",
+  "properties": {
+   "part": {
+    "type": "string",
+    "enum": [
+     "midi",
+     "restore",
+     "training_pack",
+     "training_listen"
+    ]
+   }
+  },
+  "required": [
+   "part"
+  ]
+ },
+ "midi_set": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "path": {
+    "type": "string",
+    "description": "a .mid file on this computer"
+   }
+  },
+  "required": [
+   "song_id",
+   "path"
+  ]
+ },
+ "system_gpus": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "score_to_midi": {
+  "type": "object",
+  "properties": {
+   "abc": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "abc"
+  ]
+ },
+ "score_instrumental": {
+  "type": "object",
+  "properties": {
+   "abc": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "abc"
+  ]
+ },
+ "score_vocal_octave": {
+  "type": "object",
+  "properties": {
+   "abc": {
+    "type": "string"
+   },
+   "octaves": {
+    "type": "integer"
+   }
+  },
+  "required": [
+   "abc",
+   "octaves"
+  ]
+ },
+ "score_from_midi": {
+  "type": "object",
+  "properties": {
+   "path": {
+    "type": "string",
+    "description": "a .mid file on this computer"
+   },
+   "mode": {
+    "type": "string"
+   },
+   "vocal": {
+    "type": "string"
+   },
+   "instrument": {
+    "type": "string"
+   },
+   "sections": {
+    "type": "boolean"
+   },
+   "grid": {
+    "type": "integer"
+   },
+   "vocal_octaves": {
+    "type": "integer"
+   },
+   "instrument_octaves": {
+    "type": "integer"
+   }
+  },
+  "required": [
+   "path"
+  ]
+ },
+ "score_mark": {
+  "type": "object",
+  "properties": {
+   "abc": {
+    "type": "string"
+   },
+   "style": {
+    "type": "string"
+   },
+   "lyrics": {
+    "type": "string"
+   },
+   "cot": {
+    "type": "string",
+    "enum": [
+     "full",
+     "melody",
+     "off"
+    ]
+   },
+   "keep": {
+    "type": "boolean"
+   }
+  },
+  "required": [
+   "abc",
+   "style",
+   "lyrics",
+   "cot"
+  ]
+ },
+ "library_song_note_set": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "note": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id",
+   "note"
+  ]
+ },
+ "journal_read": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "journal_clear": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "journal_remove": {
+  "type": "object",
+  "properties": {
+   "id": {
+    "type": "integer"
+   }
+  },
+  "required": [
+   "id"
+  ]
+ },
+ "cover_look_get": {
+  "type": "object",
+  "additionalProperties": false
+ },
+ "cover_look_set": {
+  "type": "object",
+  "properties": {
+   "photo": {
+    "type": "boolean"
+   },
+   "pattern": {
+    "type": "string"
+   },
+   "unique": {
+    "type": "boolean"
+   },
+   "keep": {
+    "type": "boolean"
+   }
+  },
+  "required": []
+ },
+ "cover_scenes": {
+  "type": "object",
+  "properties": {
+   "style": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "style"
+  ]
+ },
+ "cover_photos_search": {
+  "type": "object",
+  "properties": {
+   "q": {
+    "type": "string"
+   },
+   "from": {
+    "type": "integer"
+   }
+  },
+  "required": [
+   "q"
+  ]
+ },
+ "video_backgrounds_search": {
+  "type": "object",
+  "properties": {
+   "q": {
+    "type": "string"
+   },
+   "from": {
+    "type": "integer"
+   }
+  },
+  "required": [
+   "q"
+  ]
+ },
+ "song_cover_photo_set": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "image": {
+    "type": "string"
+   },
+   "page": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id",
+   "image"
+  ]
+ },
+ "song_cover_pattern_set": {
+  "type": "object",
+  "properties": {
+   "song_id": {
+    "type": "string"
+   },
+   "pattern": {
+    "type": "string"
+   },
+   "seed": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "song_id",
+   "pattern",
+   "seed"
+  ]
+ },
+ "playlist_get": {
+  "type": "object",
+  "properties": {
+   "playlist_id": {
+    "type": "string",
+    "description": "playlist id"
+   }
+  },
+  "required": [
+   "playlist_id"
+  ]
+ },
+ "song_job_dismiss": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "song job id"
+   }
+  },
+  "required": [
+   "job_id"
+  ]
+ },
+ "song_job_score_again": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "the failed song job's id"
+   }
+  },
+  "required": [
+   "job_id"
+  ]
+ },
+ "song_job_again": {
+  "type": "object",
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "the failed song job's id"
+   }
+  },
+  "required": [
+   "job_id"
+  ]
+ }
+}
